@@ -13,10 +13,5 @@ router.get('/plant/:id', plantController.getPlantById);
 // CREATE plant 
 router.post('/plant', plantController.createPlant);
 
-// UPDATE plant
-router.put('/plant/:id', plantController.updatePlant);
-
-// delete route
-router.delete('/plant/:id', plantController.deletePlant);
 
 module.exports = router;
