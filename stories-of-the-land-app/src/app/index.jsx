@@ -1,6 +1,7 @@
 import {NavBar} from "../components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { SpecimenList } from "../views";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <BrowserRouter>
         <NavBar/>
         <Routes>
-          <Route path="/plants/list"/>
+          <Route path="/plants/list" element={<SpecimenList/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,2 +1,3 @@
 import NavBar from "./NavBar/NavBar";
-export {NavBar}
+import Specimen from "./Specimen/Specimen";
+export {NavBar, Specimen}
