@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const plantSchema = new mongoose.Schema({
     plantName: {type: String, required: true},
     image: {type: String, required: false},
-    story: {type: Number, required: false},
+    story: {type: String, required: false},
     audio: {type: String, required: false}
 });
 
