@@ -18,7 +18,6 @@ const SpecimenList = () => {
         apiCalls.getAllPlant().then(
             (res)=>{
                 setSpecimens(res.data.data);
-                console.log(res)
             }
         ).catch(console.error);
     }, []);
@@ -26,11 +25,11 @@ const SpecimenList = () => {
     return (
         <SpecimenListContainer>
             {
-                specimens.map(specimen =>
+                specimens && specimens.map(specimen =>
                     <Specimen
-                        key={specimen.id}
-                        title={specimen.name}
-                        url={specimen.imageUrl}/>)
+                        key={specimen._id}
+                        title={specimen.plantName}
+                        url={specimen.image}/>)
             }
         </SpecimenListContainer>
     );
