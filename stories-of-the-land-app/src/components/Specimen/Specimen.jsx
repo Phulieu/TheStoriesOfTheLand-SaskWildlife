@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faQrcode } from '@fortawesome/free-solid-svg-icons';
+
 
 const SpecimenContainer = styled.div.attrs({
     className: 'card',
@@ -16,8 +19,16 @@ const SpecimenTitle = styled.h5.attrs({
     className: 'card-title'
 })``;
 
+const QRButton = styled.button.attrs({
+    className: 'btn btn-primary'
+})``;
+
 const EditButton = styled.button.attrs({
     className: 'btn btn-primary'
+})``;
+
+const DeleteButton = styled.button.attrs({
+    className: 'btn btn-danger'
 })``;
 
 function Specimen(){
@@ -26,7 +37,9 @@ function Specimen(){
             <SpecimenImg/>
             <SpecimenBody>
                 <SpecimenTitle>Specimen Test</SpecimenTitle>
-                <EditButton>Edit</EditButton>
+                <QRButton><FontAwesomeIcon icon={faQrcode} /></QRButton>
+                <EditButton><FontAwesomeIcon icon={faEdit} /></EditButton>
+                <DeleteButton><FontAwesomeIcon icon={faTrash} /></DeleteButton>
             </SpecimenBody>
         </SpecimenContainer>
     );
