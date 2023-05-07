@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('./db/connect');
-
+const path = require('path');
 const backend = express();
 
 backend.use(express.json());
@@ -13,6 +13,8 @@ backend.use('/api', router);
 backend.get('/', function (request, response) {
     response.redirect('/api/plant');
 });
+backend.use('/Images', express.static(path.join(__dirname, 'Images')));
+backend.use('/audios', express.static(path.join(__dirname, 'audios')));
 
 // listen for connections (on port 3001)
 backend.listen(3001, function () {
