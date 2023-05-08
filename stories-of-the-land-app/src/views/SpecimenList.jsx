@@ -68,9 +68,9 @@ const SpecimenList = () => {
                   specimens && specimens.map(specimen =>
                     <div onClick={() => handleSpecimenClick(specimen)}>
                         <Specimen
-                        key={specimen.id}
-                        title={specimen.name}
-                        url={specimen.imageUrl}/>
+                        key={specimen._id}
+                        title={specimen.plantName}
+                        url={'http://localhost:3001' + specimen.image}/>
                     </div>
                     )
             }
