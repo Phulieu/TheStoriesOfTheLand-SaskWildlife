@@ -15,7 +15,7 @@ const SpecimenList = () => {
     const [specimens, setSpecimens] = useState();
 
     useEffect(()=>{
-        apiCalls.getAllPlant().then(
+        apiCalls.getAllPlants().then(
             (res)=>{
                 setSpecimens(res.data.data);
             }
