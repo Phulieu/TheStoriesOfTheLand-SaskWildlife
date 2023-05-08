@@ -43,6 +43,7 @@ const CloseButton = styled.span`
 `;
 const SpecimenList = () => {
     const [specimens, setSpecimens] = useState();
+    const [selectedSpecimen,setSelectedSpecimen] = useState(null);
 
     useEffect(()=>{
         apiCalls.getAllPlants().then(
@@ -51,7 +52,7 @@ const SpecimenList = () => {
             }
         ).catch(console.error);
     }, []);
-    const [selectedSpecimen,setSelectedSpecimen] = useState(null);
+    
     
     const handleSpecimenClick = (specimen) => {
         setSelectedSpecimen(specimen);
