@@ -1,20 +1,28 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://localhost:3001/api'
+    baseURL : 'http://localhost:3001/api'
 });
 
-const getAllPlant = async () => {
+//get all
+const getAllPlants = async () => {
     return api.get('/plant');
 };
 
-const getPlantById = async (id) => {
+// get by id
+const getPlantById= async (id) => {
     return api.get(`/plant/${id}`);
 };
 
-const apiCalls = {
-    getAllPlant,
-    getPlantById
+// create
+const createPlant = async (payload) => {
+    return api.post('/plant',payload);
 };
+
+const apiCalls = {
+    getAllPlants,
+    getPlantById,
+    createPlant
+}
 
 export default apiCalls;
