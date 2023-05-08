@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Specimen } from "../components";
 import styled from "styled-components";
+import apiCalls from "../api";
 
 const SpecimenListContainer = styled.div`
     display: grid;
@@ -41,62 +42,18 @@ const CloseButton = styled.span`
   cursor: pointer
 `;
 const SpecimenList = () => {
+    const [specimens, setSpecimens] = useState();
     const [selectedSpecimen,setSelectedSpecimen] = useState(null);
-    // Mocked Data
-    // Refactor to call API
-    const specimens = [
-        {
-          id: 1,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-        },
-        {
-          id: 2,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
-        },
-        {
-          id: 3,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
-        },
-        {
-          id: 4,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-        },
-        {
-          id: 5,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png"
-        },
-        {
-          id: 6,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
-        },
-        {
-          id: 7,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
-        },
-        {
-          id: 8,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png"
-        },
-        {
-          id: 9,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
-        },
-        {
-          id: 10,
-          name: "SpecimenTest",
-          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png"
-        }
-      ];
 
+    useEffect(()=>{
+        apiCalls.getAllPlants().then(
+            (res)=>{
+                setSpecimens(res.data.data);
+            }
+        ).catch(console.error);
+    }, []);
+    
+    
     const handleSpecimenClick = (specimen) => {
         setSelectedSpecimen(specimen);
     }
@@ -108,7 +65,7 @@ const SpecimenList = () => {
       
         <SpecimenListContainer>
             {
-                specimens.map(specimen =>
+                  specimens && specimens.map(specimen =>
                     <div onClick={() => handleSpecimenClick(specimen)}>
                         <Specimen
                         key={specimen.id}

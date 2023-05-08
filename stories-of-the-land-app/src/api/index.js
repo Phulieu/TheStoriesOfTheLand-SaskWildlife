@@ -19,7 +19,6 @@ const createPlant = async (payload) => {
     return api.post('/plant',payload);
 };
 
-
 const apiCalls = {
     getAllPlants,
     getPlantById,
