@@ -1,2 +1,3 @@
 import SpecimenList from "./SpecimenList";
-export {SpecimenList};
+import SpecimenView from "./SpecimenView"
+export {SpecimenList, SpecimenView};
