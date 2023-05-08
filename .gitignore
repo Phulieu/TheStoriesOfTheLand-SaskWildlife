@@ -2,6 +2,7 @@
 
 # dependencies
 stories-of-the-land-app/node_modules
+stories-of-the-land-app/package-lock.json
 StoriesOfLandAPI/node_modules
 /.pnp
 .pnp.js
