@@ -30,8 +30,8 @@ const ModalContent = styled.div`
   border-radius: 10px;
   max-width: 80%;
   max-height: 80%;
-  width: 400px;
-  height: 350px;
+  width: 600px;
+  height: 550px;
   overflow-y: auto;
 `;
 const CloseButton = styled.span`
@@ -78,9 +78,9 @@ const SpecimenList = () => {
               <ModalContainer>
                 <ModalContent>
                   <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
-                  <h2>{selectedSpecimen.name}</h2>
-                  <img src={selectedSpecimen.imageUrl} alt="the specimen" />
-                  <p>Story of the specimen: Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore magni, nobis eveniet consequatur exercitationem recusandae in, magnam mollitia facilis hic voluptas numquam distinctio deserunt tempora fugit omnis, modi rem iusto.</p>
+                  <h2>{selectedSpecimen.plantName}</h2>
+                  <img src={'http://localhost:3001' + selectedSpecimen.image} alt="the specimen" />
+                  <p>Story of the land: {selectedSpecimen.story}</p>
                 </ModalContent>
               </ModalContainer>
             )}
