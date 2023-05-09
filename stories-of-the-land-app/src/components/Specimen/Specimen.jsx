@@ -1,71 +1,38 @@
-import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faQrcode } from '@fortawesome/free-solid-svg-icons';
 
-
-const SpecimenContainer = styled.div.attrs({
-    className: 'card',
-})`
-    width: 75%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    justify-self: center;
-    align-self: center;
-`;
-
-const SpecimenBody = styled.div.attrs({
-    className: 'card-body'
-})`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
-const SpecimenImg = styled.img.attrs({
-    className: 'card-img-top'
-})`
-    width: 80%;
-    max-width: 200px;
-`;
-
-const SpecimenTitle = styled.h5.attrs({
-    className: 'card-title'
-})``;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const QRButton = styled.button.attrs({
-    className: 'btn btn-primary'
-})``;
-
-const EditButton = styled.button.attrs({
-    className: 'btn btn-primary'
-})``;
-
-const DeleteButton = styled.button.attrs({
-    className: 'btn btn-danger'
-})``;
-
-function Specimen({title, url}){
-    return(
-        <SpecimenContainer>
-            <SpecimenImg src={url}/>
-            <SpecimenBody>
-                <SpecimenTitle>{title}</SpecimenTitle>
-                <ButtonGroup>
-                    <QRButton><FontAwesomeIcon icon={faQrcode} /></QRButton>
-                    <EditButton><FontAwesomeIcon icon={faEdit} /></EditButton>
-                    <DeleteButton><FontAwesomeIcon icon={faTrash} /></DeleteButton>
-                </ButtonGroup>
-            </SpecimenBody>
-        </SpecimenContainer>
-    );
+function Specimen({ title, url, onClick }) {
+  return (
+    <div className="card" style={{ width: '100%', height: '400px' }}>
+      <img
+        className="card-img-top"
+        src={url}
+        alt="Specimen"
+        style={{ objectFit: 'cover', height: '60%', cursor: 'pointer' }}
+        onClick={onClick}
+      />
+      <div className="card-body">
+        <h5
+          className="card-title text-center mt-3"
+          style={{ cursor: 'pointer' }}
+          onClick={onClick}
+        >
+          {title}
+        </h5>
+        <div className="d-flex justify-content-center mt-auto">
+          <button className="btn btn-primary mr-2">
+            <FontAwesomeIcon icon={faQrcode} />
+          </button>
+          <button className="btn btn-primary mr-2">
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+          <button className="btn btn-danger">
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Specimen;

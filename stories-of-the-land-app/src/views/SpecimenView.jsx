@@ -52,6 +52,7 @@ const SpecimenView = () => {
             apiCalls.getPlantById(specimenID.id).then(
                 (res) => {
                     setSpecimen(res.data.data);
+                    console.log(res.data.data);
                 }
             ).catch(console.error);
         } 
@@ -62,21 +63,21 @@ const SpecimenView = () => {
     }
     
     return (
-        <Card class = "container">
-            <Img src =  {specimen.image} alt="Tree"/>
+        <Card className = "container">
+            <Img src={specimen.image} alt="Tree"/>
             <Div>
                 <INFO>
                     
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-light">
-                            <h1 class = "card-title">{specimen.plantName}</h1> 
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item bg-light">
+                            <h1 className = "card-title">{specimen.plantName}</h1> 
                         </li>
-                        <li class="list-group-item bg-light">Cree &nbsp;&nbsp;&nbsp;
+                        <li className="list-group-item bg-light">Cree &nbsp;&nbsp;&nbsp;
                             <AudioPlay onClick={audioPlay}>
                                 <Volume src = {volume} />
                             </AudioPlay>
                         </li>
-                        <li class="list-group-item bg-light"><p>{specimen.story}</p></li>
+                        <li className="list-group-item bg-light"><p>{specimen.story}</p></li>
                     </ul>
 
                 </INFO>
