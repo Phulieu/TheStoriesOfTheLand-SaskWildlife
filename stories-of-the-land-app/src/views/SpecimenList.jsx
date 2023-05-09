@@ -25,12 +25,12 @@ const SpecimenList = () => {
   };
 
   return (
-    <>
+    <div style={{backgroundColor: "#06886c"}}>
     <NavBar/>
     <div className="container py-5">
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {specimens.map((specimen) => (
-          <div key={specimen._id} className="col">
+          <div key={specimen._id} className="col" >
               <Specimen
                 title={specimen.plantName}
                 url={"http://localhost:3001" + specimen.image}
@@ -42,13 +42,13 @@ const SpecimenList = () => {
       {selectedSpecimen && (
         <div
           className="modal fade show"
-          style={{ display: "block" }}
+          style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
           tabIndex="-1"
           role="dialog"
         >
-          <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
+          <div className="modal-dialog modal-dialog-centered modal-lg" role="document" >
+            <div className="modal-content" style={{backgroundColor: "#edf5e0"}}>
+              <div className="modal-header" style={{backgroundColor: "#edf5e0"}}>
                 <h5 className="modal-title text-center w-100">{selectedSpecimen.plantName}</h5>
                 <button
                   type="button"
@@ -72,7 +72,7 @@ const SpecimenList = () => {
         </div>
       )}
     </div>
-    </>
+    </div>
   );
 };
 
