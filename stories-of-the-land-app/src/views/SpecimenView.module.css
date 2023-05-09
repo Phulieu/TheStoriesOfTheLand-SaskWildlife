@@ -15,11 +15,11 @@
   }
   
   .info {
-    margin: 22px 12px;
-    padding: 10px;
+    margin-top: 10px;
+    padding: 10px 45px;
     background-color: #05396b;
     color: #edf5e0;
-    border-radius: 4px;
+    border-radius: 10px 10px 0 0;
     display: flex;
     flex-direction: column;
   }
@@ -52,7 +52,7 @@
     outline: none;
     position: relative;
     margin-left: 8px;
-    right: 120px;
+    right: 102px;
   }
   
   .volume {
