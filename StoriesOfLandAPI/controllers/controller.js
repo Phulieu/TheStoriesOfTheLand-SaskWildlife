@@ -11,23 +11,23 @@ const Plant = require('../db/models/Plants');
  */
 const getAllPlant = async (req, res) => {
 
-    //call find method to return all palnts
+    //call find method to return all plants
     Plant.find().
-    //on success call lambda function.
-    then((plants) => {
+        //on success call lambda function.
+        then((plants) => {
 
-        //check each plant object's length to make sure the content is there.
-        if (!plants.length) {
-            //if length zero means ,no data response return as json and error message 404
-            return res.status(404).json({ success: false, error: "No plants found." });
-        }
-        //if length is greater than zero means data is present and it displays data with status code 200.
-        return res.status(200).json({ success: true, data: plants });
-    }).
-    //on error catch block will be executed with anonymous lambda function .
-    catch((err) => {
-        return res.status(400).json({ success: false, error: err });
-    });
+            //check each plant object's length to make sure the content is there.
+            if (!plants.length) {
+                //if length zero means ,no data response return as json and error message 404
+                return res.status(404).json({ success: false, error: "No plants found." });
+            }
+            //if length is greater than zero means data is present and it displays data with status code 200.
+            return res.status(200).json({ success: true, data: plants });
+        }).
+        //on error catch block will be executed with anonymous lambda function and returns status code 400 with error message.
+        catch((err) => {
+            return res.status(400).json({ success: false, error: err });
+        });
 };
 
 /**
@@ -35,19 +35,18 @@ const getAllPlant = async (req, res) => {
  * @param {object} req 
  * @param {object} res 
  */
-
 const getPlantById = async (req, res) => {
     Plant.
-    //get data by id     
-    findById(req.params.id).
-    //on success data returns with status code 200
-    then((plant) => {
-        return res.status(200).json({ success: true, data: plant });
-    }).
-    //on error catch block will excute and returns staus code 400 with error message
-    catch((err) => {
-        return res.status(400).json({ success: false, error: err });
-    });
+        //get data by id     
+        findById(req.params.id).
+        //on success data returns with status code 200
+        then((plant) => {
+            return res.status(200).json({ success: true, data: plant });
+        }).
+        //on error catch block will excute and returns status code 400 with error message
+        catch((err) => {
+            return res.status(400).json({ success: false, error: err });
+        });
 };
 
 
@@ -64,7 +63,7 @@ const createPlant = async (req, res) => {
     const body = req.body;
     //The code is checking to see if the information sent in the body is an object,
     // and if so, checking to see if there are keys. If there are no keys, then the object is empty.
-    
+
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
         //if object was sent and that it is just empty return response with status code 400..
         return res.status(400).json({ success: false, error: "You must provide plant information" });
@@ -72,19 +71,19 @@ const createPlant = async (req, res) => {
 
     //create new plant object using the body
     const plant = new Plant(body);
-    if (!plant) {    
+    if (!plant) {
         return res.status(400).json({ success: false, error: "The plant was not created." });
     }
     plant.save().
-    
-    //on success 
-    then(() => {
-        return res.status(200).json({ success: true, message: "Plant created" });
-    }).
-    //on error 
-    catch((err) => {
-        return res.status(400).json({ success: false, error: err });
-    });
+
+        //on success 
+        then(() => {
+            return res.status(200).json({ success: true, message: "Plant created" });
+        }).
+        //on error 
+        catch((err) => {
+            return res.status(400).json({ success: false, error: err });
+        });
 };
 
 
@@ -95,5 +94,5 @@ module.exports = {
     getAllPlant,
     getPlantById,
     createPlant
-   
+
 };
