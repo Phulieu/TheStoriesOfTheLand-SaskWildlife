@@ -1,4 +1,9 @@
 import logo from '../../logo.svg';
+
+/**
+ * Logo Image
+ * @returns Image element
+ */
 const Logo = () => {
     return(
         <img src={logo}

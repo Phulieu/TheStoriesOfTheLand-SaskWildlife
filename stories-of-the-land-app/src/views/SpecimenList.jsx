@@ -4,10 +4,17 @@ import {NavBar} from "../components";
 import apiCalls from "../api";
 import styles from "./SpecimenList.module.css";
 
+/**
+ * Component to generate Admin view of the specimen database
+ * @returns Admin view for the database
+ */
 const SpecimenList = () => {
   const [specimens, setSpecimens] = useState([]);
   const [selectedSpecimen, setSelectedSpecimen] = useState(null);
 
+  /**
+   * API call to get all plants
+   */
   useEffect(() => {
     apiCalls
       .getAllPlants()
@@ -17,19 +24,23 @@ const SpecimenList = () => {
       .catch(console.error);
   }, []);
 
+  // Functiont to view specimen modal
   const handleSpecimenClick = (specimen) => {
     setSelectedSpecimen(specimen);
   };
 
+  // function to close modal
   const handleCloseModal = () => {
     setSelectedSpecimen(null);
   };
+
 
   return (
     <div className={styles.viewContainer}>
     <NavBar/>
     <div className="container py-5">
       <div className="row row-cols-1 row-cols-md-3 g-4">
+        {/* Map through the database */}
         {specimens.map((specimen) => (
           <div key={specimen._id} className="col" >
               <Specimen
@@ -40,6 +51,7 @@ const SpecimenList = () => {
           </div>
         ))}
       </div>
+      {/* Modal view */}
       {selectedSpecimen && (
         <div
           className={`${styles.modal} modal fade show`}
