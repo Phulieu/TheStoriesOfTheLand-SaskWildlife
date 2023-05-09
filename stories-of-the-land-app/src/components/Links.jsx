@@ -10,7 +10,7 @@ const Links = () => {
         <>
             <Link className="navbar-brand" to="/">Stories of the Land App</Link>
             <List>
-                <Link className="nav-link" to="/plants/list">Specimens</Link>
+                <Link className="nav-link" to="/plant/list">Specimens</Link>
             </List>
         </>
     );
