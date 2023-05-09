@@ -1,0 +1,34 @@
+.card {
+    width: 100%;
+    height: 400px;
+}
+
+.cardBody {
+    border-radius: 0 0 3px 3px;
+}
+
+.title {
+    cursor: pointer;
+    font-size: 34px;
+    color: #204618;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+
+}
+
+.button {
+    color: white;
+    margin: 10px;
+}
+
+.buttonNormal {
+    background-color: #204618;
+}
+
+.buttonDelete {
+    background-color: #ffb900;
+}
+
