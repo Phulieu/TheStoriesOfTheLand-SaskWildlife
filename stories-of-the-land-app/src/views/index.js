@@ -1,3 +1,5 @@
 import SpecimenList from "./SpecimenList";
-import SpecimenView from "./SpecimenView"
+import SpecimenView from "./SpecimenView";
+
+
 export {SpecimenList, SpecimenView};

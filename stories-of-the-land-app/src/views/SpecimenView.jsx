@@ -4,11 +4,16 @@ import styles from "./SpecimenView.module.css";
 import apiCalls from "../api";
 import volume from "../volume-up.svg";
 
+/**
+ * Component to generate spcimen view for the end user
+ * @returns Specimen view
+ */
 const SpecimenView = () => {
   const specimenID = useParams();
   const [specimen, setSpecimen] = useState({});
   const calledAPI = useRef();
 
+  // API Call to get the spicmen view by ID
   useEffect(() => {
     if (!calledAPI.current) {
       calledAPI.current = true;
@@ -21,11 +26,13 @@ const SpecimenView = () => {
     }
   }, []);
 
+  // funtion to play audio file
   function audioPlay() {
     new Audio(specimen.audio).play();
   }
 
   return (
+    // Specimen view
     <div className={styles.card}>
       <img src={specimen.image} alt="Tree" className={styles.image} />
       <div className={styles.info}>

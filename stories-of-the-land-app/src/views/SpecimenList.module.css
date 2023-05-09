@@ -1,0 +1,8 @@
+.viewContainer {
+    background-color: #d2e3da
+}
+
+.modal {
+    display: block; 
+    background-color: rgba(0, 0, 0, 0.5)
+}

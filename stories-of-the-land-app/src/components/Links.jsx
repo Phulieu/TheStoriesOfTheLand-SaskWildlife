@@ -5,6 +5,10 @@ const List = styled.div.attrs({
     className: 'navbar-nav me-auto'
 })``;
 
+/**
+ * Returns component for navigation
+ * @returns Creates link to navigate to routes
+ */
 const Links = () => {
     return(
         <>
