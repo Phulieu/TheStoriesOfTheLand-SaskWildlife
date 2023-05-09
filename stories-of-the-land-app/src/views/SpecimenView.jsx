@@ -1,89 +1,51 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import styles from "./SpecimenView.module.css";
 import apiCalls from "../api";
 import volume from "../volume-up.svg";
-const INFO = styled.div.attrs({
-    
-})`
-        
-    border-radius: 50px,
-    margin: auto,
-    background-color: beige solid;
-        
-    `;
-        
-const AudioPlay = styled.button.attrs({
-    className: 'btn btn-secondary'
-})`width: 15px,
-height: 15px,
-border-radius: 50px`
-;
-
-const Div = styled.div.attrs({
-    className: 'card p-3 mb-2 bg-light position-absolute bottom-25'
-})`width: 480px`;
-
-const Card = styled.div.attrs({
-    className: 'container'
-})`width: 480px
-position: relative
-`;
-
-const Img = styled.img.attrs({
-    
-})`width: 480px,
-position: relative
-`;
-
-const Volume = styled.img.attrs({
-    
-})``;
 
 const SpecimenView = () => {
+  const specimenID = useParams();
+  const [specimen, setSpecimen] = useState({});
+  const calledAPI = useRef();
 
-    const specimenID = useParams();
-    const [specimen,setSpecimen] = useState({});
-    const calledAPI = useRef();
-
-    useEffect( ()=> {
-        if(!calledAPI.current) {
-            calledAPI.current = true;
-            apiCalls.getPlantById(specimenID.id).then(
-                (res) => {
-                    setSpecimen(res.data.data);
-                    console.log(res.data.data);
-                }
-            ).catch(console.error);
-        } 
-    }, []);
-
-    function audioPlay() {
-        new Audio(specimen.audio).play();
+  useEffect(() => {
+    if (!calledAPI.current) {
+      calledAPI.current = true;
+      apiCalls
+        .getPlantById(specimenID.id)
+        .then((res) => {
+          setSpecimen(res.data.data);
+        })
+        .catch(console.error);
     }
-    
-    return (
-        <Card className = "container">
-            <Img src={specimen.image} alt="Tree"/>
-            <Div>
-                <INFO>
-                    
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item bg-light">
-                            <h1 className = "card-title">{specimen.plantName}</h1> 
-                        </li>
-                        <li className="list-group-item bg-light">Cree &nbsp;&nbsp;&nbsp;
-                            <AudioPlay onClick={audioPlay}>
-                                <Volume src = {volume} />
-                            </AudioPlay>
-                        </li>
-                        <li className="list-group-item bg-light"><p>{specimen.story}</p></li>
-                    </ul>
+  }, []);
 
-                </INFO>
-            </Div>
-        </Card>
-    );
+  function audioPlay() {
+    new Audio(specimen.audio).play();
+  }
+
+  return (
+    <div className={styles.card}>
+      <img src={specimen.image} alt="Tree" className={styles.image} />
+      <div className={styles.info}>
+        <h1 className={styles.title}>{specimen.plantName}</h1>
+        <div className={styles.audioContainer}>
+          <span className={styles.label}>Cree Pronunciation</span>
+          <button className={styles.audioButton} onClick={audioPlay}>
+            <img src={volume} alt="Volume icon" className={styles.volume} />
+          </button>
+        </div>
+        <p className={styles.story}>{specimen.story}</p>
+        <p className={styles.lorem}>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed
+          provident alias maxime dolorum laudantium voluptatum optio molestiae
+          unde natus, accusantium saepe. Pariatur, laborum in facere veniam
+          suscipit qui molestias modi!
+        </p>
+      </div>
+    </div>
+  );
 };
 
-export default SpecimenView; 
+export default SpecimenView;
