@@ -11,7 +11,7 @@ function Specimen({ title, url, onClick }) {
         style={{ objectFit: 'cover', height: '60%', cursor: 'pointer' }}
         onClick={onClick}
       />
-      <div className="card-body" style={{backgroundColor: "#edf5e0"}}>
+      <div className="card-body" style={{backgroundColor: "#629c7d"}}>
         <h5
           className="card-title text-center mt-3"
           style={{ cursor: 'pointer' }}
