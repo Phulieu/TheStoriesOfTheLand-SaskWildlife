@@ -25,7 +25,7 @@ const SpecimenList = () => {
   };
 
   return (
-    <div style={{backgroundColor: "#06886c"}}>
+    <div style={{backgroundColor: "#d2e3da"}}>
     <NavBar/>
     <div className="container py-5">
       <div className="row row-cols-1 row-cols-md-3 g-4">
