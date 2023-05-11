@@ -5,6 +5,12 @@ import apiCalls from "../api";
 import volume from "../volume-up.svg";
 import axios from "axios";
 
+/**
+This component displays a specimen's details and allows the user to toggle between English and French language.
+@returns {React.Component}
+*/
+
+
 const SpecimenView = () => {
   const { id } = useParams();
   const [specimen, setSpecimen] = useState({});
@@ -12,6 +18,11 @@ const SpecimenView = () => {
 
   const calledAPI = useRef();
 
+  /**
+  This function translates text from English to French using a third-party API.
+  @param {string} item - The text to be translated
+  @returns {string} - the translated text in French
+  */
   async function translateToFrench(item) {
     const encodedParams = new URLSearchParams();
     encodedParams.set('source_language', 'en');
@@ -49,10 +60,16 @@ const SpecimenView = () => {
 
   }, [id]);
 
+  /**
+    This function plays the audio file associated with the specimen.
+  */
   function audioPlay() {
     new Audio(specimen.audio).play();
   }
 
+  /**
+    This function toggles the language between English and French for the specimen's details.
+  */
   async function handleLanguageToggle() {
     if (language === "en") {
       // Translate to French
