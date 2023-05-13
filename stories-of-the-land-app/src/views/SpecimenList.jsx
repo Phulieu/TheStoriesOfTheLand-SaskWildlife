@@ -4,6 +4,7 @@ import {NavBar} from "../components";
 import apiCalls from "../api";
 import styles from "./SpecimenList.module.css";
 
+const backendURL = process.env.REACT_APP_BACKEND_IP || 'localhost';
 /**
  * Component to generate Admin view of the specimen database
  * @returns Admin view for the database
@@ -45,7 +46,7 @@ const SpecimenList = () => {
           <div key={specimen._id} className="col" >
               <Specimen
                 title={specimen.plantName}
-                url={"http://localhost:3001" + specimen.image}
+                url={`http://${backendURL}:3001` + specimen.image}
                 onClick={() => handleSpecimenClick(specimen)}
               />
           </div>
@@ -72,7 +73,7 @@ const SpecimenList = () => {
               </div>
               <div className="modal-body d-flex justify-content-center align-items-center flex-column">
                 <img
-                  src={"http://localhost:3001" + selectedSpecimen.image}
+                  src={`http://${backendURL}:3001` + selectedSpecimen.image}
                   alt="the specimen"
                   className="img-fluid mb-3"
                   style={{ maxWidth: "100%" }}
