@@ -4,6 +4,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SpecimenList } from "../views";
 import SpecimenView from "../views/SpecimenView";
 
+
+
 /**
  * MAIN react 
  * @returns 
