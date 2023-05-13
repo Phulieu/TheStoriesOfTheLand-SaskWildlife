@@ -16,7 +16,7 @@ backend.use(express.json());
  * middleware is configured to only allow requests from http://localhost:3000. 
  */
 backend.use(cors({
-    origin: 'http://localhost:3000'
+    origin: '*'
 }));
 
 
