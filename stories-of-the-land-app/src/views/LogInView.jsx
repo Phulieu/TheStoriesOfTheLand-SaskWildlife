@@ -2,6 +2,7 @@ import { useState } from "react";
 import { UserInput } from "../components";
 import { useNavigate } from "react-router-dom";
 import styles from "./LogInView.module.css";
+import apiCalls from "../api";
 
 function LogInView() {
 
@@ -13,11 +14,11 @@ function LogInView() {
     const navigate = useNavigate();
 
     const loginUser = async (username, password) => {
-        // apiCalls.login({username,password}).then(() => {
-        //     navigate('/plant/list')
-        // }).catch((err) => {
-        //     console.log(err);
-        // })
+        apiCalls.login({username,password}).then(() => {
+            navigate('/plant/list')
+        }).catch((err) => {
+            console.log(err);
+        })
     }
     return (
         <div className={`${styles.loginBackground} w-100`}>
