@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import styles from "./Specimen.module.css";
+import { Link } from 'react-router-dom';
 
 /**
  * Component to render specimen view for Admin
@@ -9,7 +10,7 @@ import styles from "./Specimen.module.css";
  * @param { onClick } funtion to handle event
  * @returns Specimen view 
  */
-function Specimen({ title, url, onClick }) {
+function Specimen({ title, url, onClick, SelectedSpecimenID }) {
   return (
     <div className={`card ${styles.card}`}>
     {/* // Specimen Card */}
@@ -33,9 +34,10 @@ function Specimen({ title, url, onClick }) {
         {/* Buttons for Delete, Update and Generate QR code */}
         <div className={`d-flex justify-content-center mt-auto ${styles.buttons}`}>
           {/* Button to generate QR code */}
+          <Link to={`/plant/${SelectedSpecimenID}/QRCode`}>
           <button className={`btn btn-primary mr-2 ${styles.button} ${styles.buttonNormal}`}>
             <FontAwesomeIcon icon={faQrcode} />
-          </button>
+          </button></Link>
           {/* Button for edit/ update specimen informaton */}
           <button className={`btn btn-primary mr-2 ${styles.button} ${styles.buttonNormal}`}>
             <FontAwesomeIcon icon={faEdit} />

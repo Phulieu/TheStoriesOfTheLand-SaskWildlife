@@ -48,6 +48,7 @@ const SpecimenList = () => {
                 title={specimen.plantName}
                 url={`http://${backendURL}:3001` + specimen.image}
                 onClick={() => handleSpecimenClick(specimen)}
+                SelectedSpecimenID = {selectedSpecimen._id}
               />
           </div>
         ))}
