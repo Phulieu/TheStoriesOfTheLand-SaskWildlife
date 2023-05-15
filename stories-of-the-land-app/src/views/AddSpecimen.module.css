@@ -32,6 +32,10 @@
     cursor: pointer;
 }
 
+.dropFileInput audio {
+    z-index: 1;
+}
+
 .dropFileInput:hover,
 .dropFileInput.dragover {
     opacity: 0.6;

@@ -26,8 +26,12 @@ const AddSpecimen = () => {
   };
 
   const handleAudioChange = (e) => {
-    const file = e.target.files[0];
-    setAudio(file);
+    const newFile = e.target.files[0];
+    if (newFile) {
+        setAudio(URL.createObjectURL(newFile));
+        console.log(newFile);
+        
+    }
   };
 
   const handleSubmit = (e) => {
@@ -63,7 +67,7 @@ const AddSpecimen = () => {
 
   const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
-  const onFileDrop = (e) => {
+  const onImageDrop = (e) => {
       const newFile = e.target.files[0];
       if (newFile) {
           setImage(newFile);
@@ -72,8 +76,21 @@ const AddSpecimen = () => {
       }
   };
 
-  const fileRemove = () => {
+  const onAudioDrop = (e) => {
+    const newFile = e.target.files[0];
+    if (newFile) {
+        setAudio(newFile);
+        console.log(newFile);
+        
+    }
+};
+
+  const imageRemove = () => {
     setImage(null);
+  };
+
+  const audioRemove = () => {
+    setAudio(null);
   };
 
   return (
@@ -107,75 +124,56 @@ const AddSpecimen = () => {
             ></textarea>
           </div>
           <div className="mb-3">
-          <label htmlFor="image" className="form-label">
-            Image
-          </label>
-          {/* Image drop container */}
-          <div
-            ref={wrapperRef}
-            className={`${styles.dropFileInput} ${image ? styles.withPreview : ''}`}
-            onDragEnter={onDragEnter}
-            onDragLeave={onDragLeave}
-            onDrop={onDrop}
-          >
-            {/* Image preview */}
-            {image ? (
-              <div className={styles.imagePreview}>
-                <img src={URL.createObjectURL(image)} alt="Preview" />
-                <div className={styles.deleteButton} onClick={fileRemove}>
-                  <i className="fas fa-times"></i>
+            <label htmlFor="image" className="form-label">
+              Image
+            </label>
+            {/* Image drop container */}
+            <div
+              ref={wrapperRef}
+              className={`${styles.dropFileInput} ${
+                image ? styles.withPreview : ""
+              }`}
+              onDragEnter={onDragEnter}
+              onDragLeave={onDragLeave}
+              onDrop={onDrop}
+            >
+              {/* Image preview */}
+              {image ? (
+                <div className={styles.imagePreview}>
+                  <img src={URL.createObjectURL(image)} alt="Preview" />
+                  <div className={styles.deleteButton} onClick={imageRemove}>
+                    <i className="fas fa-times"></i>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className={styles.dropFileInputLabel}>
-                <img src={uploadImg} alt="" />
-                <p>Drag & Drop your image here or Click to browse files</p>
-              </div>
-            )}
-            <input type="file" value="" onChange={onFileDrop} />
+              ) : (
+                <div className={styles.dropFileInputLabel}>
+                  <img src={uploadImg} alt="" />
+                  <p>Drag & Drop your image here or Click to browse files</p>
+                </div>
+              )}
+              <input type="file" value="" onChange={onImageDrop} />
+            </div>
           </div>
-        </div>
           <div className="mb-3">
             <label htmlFor="audio" className="form-label">
               Audio
             </label>
-            <div className="position-relative">
-            <div
-              id="audio-dropzone"
-              className={`form-control ${styles.dropzone} ${audio ? styles.hasAudio : ""}`}
-              onDrop={handleAudioDrop}
-              onDragOver={(e) => e.preventDefault()}
-            >
-              {audio ? (
-                <div className={`${styles.uploadedAudio} d-flex justify-content-center align-items-center`}>
-                  <audio controls>
-                    <source src={URL.createObjectURL(audio)} type="audio/*" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>
-              ) : (
-                <div className={styles.uploadBox}>
-                  <span className={styles.uploadIcon}>
-                    <i className="fas fa-cloud-upload-alt"></i>
-                  </span>
-                  <span className={styles.uploadText}>Upload file</span>
+            {/* Audio drop container */}
+            <div className="d-flex flex-column align-items-center">
+              <input
+                type="file"
+                className="form-control"
+                accept="audio/*"
+                onChange={handleAudioChange}
+              />
+              {audio && (
+                <div className="mt-3">
+                  <audio id="audioPlayer" src={audio} controls />
                 </div>
               )}
             </div>
-            <input
-              type="file"
-              id="audio-input"
-              accept="audio/*"
-              onChange={handleAudioChange}
-              style={{ display: "none" }}
-            />
-            <div className="text-center mt-2">
-              <label htmlFor="audio-input" className="btn btn-primary">
-                Browse
-              </label>
-            </div>
           </div>
-          </div>
+
           <button type="submit" className="btn btn-primary">
             Add Specimen
           </button>
@@ -183,6 +181,7 @@ const AddSpecimen = () => {
       </div>
     </>
   );
+  
   
 
 }
