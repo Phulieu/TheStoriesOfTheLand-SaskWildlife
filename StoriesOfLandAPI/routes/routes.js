@@ -15,6 +15,7 @@ const auth = require('../auth');
 const router = express();
 
 // auth
+router.post('/register', authController.register);
 router.post('/login', passport.authenticate('local', { session: false }), authController.login);
 /**
  * defines a route that handles GET requests to the '/plant' URL.
