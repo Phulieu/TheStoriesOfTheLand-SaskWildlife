@@ -12,10 +12,15 @@
   }
   
   .dropFileInput.withPreview {
-    width: auto;
-    height: auto;
-    padding: 0;
-    border: none;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    margin:auto;
   }
 .dropFileInput input {
     opacity: 0;
@@ -34,7 +39,6 @@
 
 .dropFileInputLabel {
     text-align: center;
-    color: var(--txt-second-color);
     font-weight: 600;
     padding: 10px;
 }
@@ -42,3 +46,29 @@
 .dropFileInputLabel img {
     width: 100px;
 }
+
+.deleteButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    padding: 5px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .imagePreview {
+    position: relative;
+    max-width: auto; /* Adjust the maximum width as per your preference */
+    max-height: auto; /* Adjust the maximum height as per your preference */
+    margin: auto;
+
+  }
+  
+  .imagePreview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Preserve the aspect ratio of the image */
+  }

@@ -19,26 +19,10 @@ const AddSpecimen = () => {
     setStory(e.target.value);
   };
 
-  const handleImageDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      const imageFile = new File([file], file.name, { type: file.type });
-      setImage(imageFile);
-      console.log(imageFile);
-    }
-  };
-
   const handleAudioDrop = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     setAudio(file);
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file)
-    setImage(file);
   };
 
   const handleAudioChange = (e) => {
@@ -86,7 +70,11 @@ const AddSpecimen = () => {
           console.log(newFile);
           
       }
-  }
+  };
+
+  const fileRemove = () => {
+    setImage(null);
+  };
 
   return (
     <>
@@ -134,6 +122,9 @@ const AddSpecimen = () => {
             {image ? (
               <div className={styles.imagePreview}>
                 <img src={URL.createObjectURL(image)} alt="Preview" />
+                <div className={styles.deleteButton} onClick={fileRemove}>
+                  <i className="fas fa-times"></i>
+                </div>
               </div>
             ) : (
               <div className={styles.dropFileInputLabel}>
