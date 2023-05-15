@@ -25,16 +25,18 @@ function LogInView() {
             <div className={styles.loginContainer}>
             <h2 className={styles.loginTitle}>User Login</h2>
                     <div className={styles.loginForm}>
-                        <label>Username:</label>
+                        <label className={styles.loginLabel}>Username:</label>
                         <UserInput
                             setValue = {setUsername}
                             initialValue =""
+                            className ={styles.loginInput}
                         />
-                        <label>Password:</label>
+                        <label className={styles.loginLabel}>Password:</label>
                         <UserInput
                             setValue = {setPassword}
                             initialValue =""
                             type = "password"
+                            className ={styles.loginInput}
                         />
                         <button className={styles.loginButton} onClick = {() => {
                             loginUser(username,password);
