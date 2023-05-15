@@ -1,0 +1,44 @@
+
+.dropFileInput {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    margin:auto;
+  }
+  
+  .dropFileInput.withPreview {
+    width: auto;
+    height: auto;
+    padding: 0;
+    border: none;
+  }
+.dropFileInput input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.dropFileInput:hover,
+.dropFileInput.dragover {
+    opacity: 0.6;
+}
+
+.dropFileInputLabel {
+    text-align: center;
+    color: var(--txt-second-color);
+    font-weight: 600;
+    padding: 10px;
+}
+
+.dropFileInputLabel img {
+    width: 100px;
+}

@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SpecimenList } from "../views";
 import SpecimenView from "../views/SpecimenView";
+import AddSpecimen from "../views/AddSpecimen";
 
 
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<SpecimenList/>}/>
           <Route path="/plant/list" element={<SpecimenList/>}/>
           <Route path="/plant/:id" element={<SpecimenView/>}/>
+          <Route path="/add-specimen" element={<AddSpecimen/>}/>
         </Routes>
       </BrowserRouter>
     </div>
