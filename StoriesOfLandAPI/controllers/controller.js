@@ -1,9 +1,6 @@
 // import Plants 
 const Plant = require('../db/models/Plants');
 
-
-
-
 /**
  * This function handles the GET request to retrieve all plant records from the database.
  * @param {object} req 
@@ -86,13 +83,73 @@ const createPlant = async (req, res) => {
         });
 };
 
+/**
+ * This function updates a plant object on the API with the specified data.
+ * @param {object} req 
+ * @param {object} res 
+ * @returns update a plant object.
+ */
+const updatePlant = async (req, res) => {
+    // stored request id to a constant
+    const id = req.params.id;
+    // stored request body to a constant
+    const body = req.body;
+    // The code is checking to see if the information sent in the body is an object,
+    // and if so, checking to see if there are keys. If there are no keys, then the object is empty.
+    if (body.constructor === Object && Object.keys(body).length === 0) {
+        return res.status(400).json({ success: false, error: "You must provide Plant information" });
+    }
+    // find the document that needs to be updated
+    Plant.findById(id).then((plant) => {
+        // update plant object using the body
+        plant.plantName = body.plantName;
+        plant.image = body.image;
+        plant.story = body.story;
+        plant.audio = body.audio;
+
+        plant.save().then(() => {
+            // on success
+            return res.status(200).json({
+                success: true,
+                id: plant['_id'],
+                message: "Plant updated"
+            });
+        }).
+            // on error
+            catch((err) => {
+                return res.status(400).json({ success: false, error: err });
+            });
+    }).
+        // callback function contains an error, a respond with status 400 and the error message
+        catch((err) => {
+            return res.status(400).json({ success: false, error: err });
+        });
+};
 
 /**
- *  export getAllPlant, getPlantById, createPlant.
+ * This function deletes a plant object on the API.
+ * @param {object} req 
+ * @param {object} res 
+ */
+const deletePlant = async (req, res) => {
+    // delete the document
+    Plant.findByIdAndRemove(req.params.id).then((plant) => {
+        // on success
+        return res.status(200).json({ success: true, message: "Plant deleted", data: plant });
+    }).
+        // on error
+        catch((err) => {
+            return res.status(400).json({ sucess: false, error: err });
+        });
+};
+
+/**
+ *  export getAllPlant, getPlantById, createPlant, updatePlant and deletePlant.
  */
 module.exports = {
     getAllPlant,
     getPlantById,
-    createPlant
-
+    createPlant,
+    updatePlant,
+    deletePlant
 };
