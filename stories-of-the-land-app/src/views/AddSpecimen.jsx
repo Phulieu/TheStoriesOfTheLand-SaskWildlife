@@ -3,6 +3,12 @@ import { NavBar } from "../components";
 import apiCalls from "../api";
 import styles from "./AddSpecimen.module.css"
 import uploadImg from '../assets/cloud-upload-regular-240.png'
+import axios from 'axios';
+
+const backendURL = process.env.REACT_APP_BACKEND_IP || 'localhost';
+const api = axios.create({
+  baseURL: `http://${backendURL}:3001/api`,
+});
 
 const AddSpecimen = () => {
   const [name, setName] = useState("");
@@ -28,18 +34,22 @@ const AddSpecimen = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if(image) {
-      try{
-        await apiCalls.uploadImage(image).then((res)=>{
-          console.log(res)
-        }).catch(console.error);
-      }catch (error) {
-        console.error(error);
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('image', image);
+      const response = await api.post('/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Upload success:', response.data);
+    } catch (error){
+      console.error(error);
     }
-    }
-  }
+  };
 
   const onDragEnter = () => wrapperRef.current.classList.add('dragover');
 
@@ -69,7 +79,7 @@ const AddSpecimen = () => {
       <NavBar />
       <div className="container mt-4">
         <h2 className="text-center">Add New Specimen</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleFormSubmit(e)}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Name
