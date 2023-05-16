@@ -2,6 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import QRCode from 'qrcode';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import styles from "./QRCode.module.css";
+import { NavBar } from '../components';
+
 
 /**
  * QRGeneration page
@@ -34,6 +37,8 @@ const QRGenerate = () => {
             setQr(url);
           })
       }
+
+      
     }, []);
     
     /**
@@ -44,14 +49,31 @@ const QRGenerate = () => {
     }
     
     return(
-      <div className='d-flex align-items-center justify-content-center'>
-        {qr && <div>
-          <img className='border-3' src={qr} alt='QR Code' />
-          <span className='d-flex align-items-center justify-content-center d-print-none'>
-            <a className = "btn btn-light btn-lg btn-radius btn-outline-dark" href={qr} download="qrcode.png">Download</a>
-            <button onClick={printQR} className= "btn btn-light btn-lg btn-radius btn-outline-dark">Print</button>
-          </span>
-        </div>}
+
+      <div className={styles.qrBackground}>
+        <NavBar />
+        <div className={styles.qrContainer}>
+        {qr && (
+          <div>
+            <img className={styles.qrImage} src={qr} alt="QR Code" />
+            <span className={`${styles.qrButtonContainer} d-print-none`}>
+              <a
+                className={`${styles.qrButton} btn btn-lg btn-radius btn-outline-dark`}
+                href={qr}
+                download="qrcode.png"
+              >
+                Download
+              </a>
+              <button
+                onClick={printQR}
+                className={`${styles.qrButton} btn btn-lg btn-radius btn-outline-dark`}
+              >
+                Print
+              </button>
+            </span>
+          </div>
+        )}
+      </div>
       </div>
   );
 }
