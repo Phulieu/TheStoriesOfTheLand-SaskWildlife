@@ -17,6 +17,7 @@ const router = express();
 // auth
 router.post('/register', authController.register);
 router.post('/login', passport.authenticate('local', { session: false }), authController.login);
+router.post('/logout', authController.logout);
 /**
  * defines a route that handles GET requests to the '/plant' URL.
  * When a GET request is received at this URL, the 'getAllPlant' function from the 'plantController' module is called.

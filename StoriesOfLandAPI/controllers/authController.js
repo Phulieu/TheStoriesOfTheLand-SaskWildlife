@@ -18,7 +18,21 @@ const login = async (req, res) => {
     res.status(200).json({ success: true, token: token, message: "logged in" });
 };
 
+const logout = async (req, res) => {
+
+    const token = auth.getToken({ _id: req.user._id });
+
+    jwt.verify(token, 'your_secret_key', (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Invalid or expired token' });
+        }
+
+        return res.status(200).json({ message: 'Logout successful' });
+    });
+};
+
 module.exports = {
     register,
-    login
+    login,
+    logout
 };
