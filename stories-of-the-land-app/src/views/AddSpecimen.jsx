@@ -28,32 +28,18 @@ const AddSpecimen = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("story", story);
-    formData.append("image", image);
-    formData.append("audio", audio);
-
-    apiCalls
-      .addSpecimen(formData)
-      .then((res) => {
-        // Handle successful submission
-        console.log("Specimen added successfully");
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error adding specimen:", error);
-      });
-
-    // Reset form fields
-    setName("");
-    setStory("");
-    setImage(null);
-    setAudio(null);
-  };
+    if(image) {
+      try{
+        await apiCalls.uploadImage(image).then((res)=>{
+          console.log(res)
+        }).catch(console.error);
+      }catch (error) {
+        console.error(error);
+    }
+    }
+  }
 
   const onDragEnter = () => wrapperRef.current.classList.add('dragover');
 
@@ -75,7 +61,7 @@ const AddSpecimen = () => {
   };
 
   const imageUploadHandler = () => {
-    
+
   };
 
   return (
