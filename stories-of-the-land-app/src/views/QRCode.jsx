@@ -3,20 +3,23 @@ import QRCode from 'qrcode';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+/**
+ * QRGeneration page
+ * @returns  Component
+ */
 const QRGenerate = () => {
     const SpecimenID = useParams();
     const URL = useRef();
     const url = 'http://localhost:3000/plant/';
-	const [qr, setQr] = useState('');
+	  const [qr, setQr] = useState('');
     const calledAPI = useRef(false);
     URL.current = url + SpecimenID.SpecimenID;
 
     useEffect( ()=> {
-      if(!calledAPI.current) {
-                
+      if(!calledAPI.current) {           
                 calledAPI.current = true;
-                
                 console.log(URL.current);
+                /* QR GERRATION API CALL */
                 QRCode.toDataURL(URL.current, {
                 height: 400,
                 width: 400,
@@ -33,6 +36,9 @@ const QRGenerate = () => {
       }
     }, []);
     
+    /**
+     * Print page
+     */
     function printQR(){
       window.print();
     }
