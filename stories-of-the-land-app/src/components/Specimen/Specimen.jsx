@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
  * @param { onClick } funtion to handle event
  * @returns Specimen view 
  */
-function Specimen({ title, url, onClick, SelectedSpecimenID }) {
+function Specimen({ id,title, url, onClick }) {
   return (
     <div className={`card ${styles.card}`}>
     {/* // Specimen Card */}
@@ -34,7 +34,7 @@ function Specimen({ title, url, onClick, SelectedSpecimenID }) {
         {/* Buttons for Delete, Update and Generate QR code */}
         <div className={`d-flex justify-content-center mt-auto ${styles.buttons}`}>
           {/* Button to generate QR code */}
-          <Link to={`/plant/${SelectedSpecimenID}/QRCode`}>
+          <Link to={`/plant/${id}/QRCode`}>
           <button className={`btn btn-primary mr-2 ${styles.button} ${styles.buttonNormal}`}>
             <FontAwesomeIcon icon={faQrcode} />
           </button></Link>
