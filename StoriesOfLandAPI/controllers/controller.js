@@ -55,34 +55,35 @@ const getPlantById = async (req, res) => {
  * @returns create a new plant object.
  */
 const createPlant = async (req, res) => {
-
-    //stored request body to a constant
-    const body = req.body;
-    //The code is checking to see if the information sent in the body is an object,
-    // and if so, checking to see if there are keys. If there are no keys, then the object is empty.
-
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-        //if object was sent and that it is just empty return response with status code 400..
-        return res.status(400).json({ success: false, error: "You must provide plant information" });
+      return res.status(400).json({ success: false, error: "You must provide plant information" });
     }
-
-    //create new plant object using the body
-    const plant = new Plant(body);
-    if (!plant) {
-        return res.status(400).json({ success: false, error: "The plant was not created." });
-    }
-    plant.save().
-
-        //on success 
-        then(() => {
-            return res.status(200).json({ success: true, message: "Plant created" });
-        }).
-        //on error 
-        catch((err) => {
-            return res.status(400).json({ success: false, error: err });
+    const { plantName,story } = req.body;
+    const imageFile = req.files['image'][0];
+    const audioFile = req.files['audio'][0];
+    const plant = new Plant({ plantName, story, imageName: imageFile.originalname, audioName: audioFile.originalname });
+    plant.save()
+      .then(() => {
+        const imageDestination = path.join(__dirname, 'Images', imageFile.originalname);
+        const audioDestination = path.join(__dirname, 'audios', audioFile.originalname);
+        fs.rename(imageFile.path, imageDestination, (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ success: false, error: 'Failed to save the image' });
+          }
+          fs.rename(audioFile.path, audioDestination, (err) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).json({ success: false, error: 'Failed to save the audio' });
+            }
+            return res.status(200).json({ success: true, message: 'Plant created' });
+          });
         });
-};
-
+      })
+      .catch((err) => {
+        return res.status(400).json({ success: false, error: err });
+      });
+  };
 /**
  * This function updates a plant object on the API with the specified data.
  * @param {object} req 
