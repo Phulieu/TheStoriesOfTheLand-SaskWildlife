@@ -19,12 +19,6 @@ const AddSpecimen = () => {
     setStory(e.target.value);
   };
 
-  const handleAudioDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setAudio(file);
-  };
-
   const handleAudioChange = (e) => {
     const newFile = e.target.files[0];
     if (newFile) {
@@ -76,21 +70,12 @@ const AddSpecimen = () => {
       }
   };
 
-  const onAudioDrop = (e) => {
-    const newFile = e.target.files[0];
-    if (newFile) {
-        setAudio(newFile);
-        console.log(newFile);
-        
-    }
-};
-
   const imageRemove = () => {
     setImage(null);
   };
 
-  const audioRemove = () => {
-    setAudio(null);
+  const imageUploadHandler = () => {
+    
   };
 
   return (
@@ -174,7 +159,7 @@ const AddSpecimen = () => {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className={styles.addSpecimenButton}>
             Add Specimen
           </button>
         </form>

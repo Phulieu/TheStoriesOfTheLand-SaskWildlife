@@ -7,6 +7,7 @@ const api = axios.create({
     baseURL : `http://${backendURL}:3001/api`,
     "Content-Type": 'application/json'
 });
+
 const setHeader = ()=>{
     return{
         headers: {
@@ -37,12 +38,27 @@ const createPlant = async (payload) => {
     return api.post('/plant',payload,setHeader());
 };
 
+// API call to upload image file and store it in the server
+const uploadImage = async(image)=>{
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const config = {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            ...setHeader().headers,
+        },
+    };
+    return api.post('/upload', formData, config);
+};
+
 // return API calls
 const apiCalls = {
     getAllPlants,
     getPlantById,
     createPlant,
-    login
+    login,
+    uploadImage,
 }
 
 export default apiCalls;
