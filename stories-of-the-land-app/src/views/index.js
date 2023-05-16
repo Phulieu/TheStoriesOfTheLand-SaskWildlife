@@ -4,4 +4,4 @@ import LogInView from "./LogInView";
 import QRGenerate from "./QRCode";
 
 
-export {SpecimenList, SpecimenView, LogInView};
+export {SpecimenList, SpecimenView, LogInView,QRGenerate};
