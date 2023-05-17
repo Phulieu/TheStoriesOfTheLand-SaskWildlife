@@ -3,12 +3,6 @@ import { NavBar } from "../components";
 import apiCalls from "../api";
 import styles from "./AddSpecimen.module.css"
 import uploadImg from '../assets/cloud-upload-regular-240.png'
-import axios from 'axios';
-
-const backendURL = process.env.REACT_APP_BACKEND_IP || 'localhost';
-const api = axios.create({
-  baseURL: `http://${backendURL}:3001/api`,
-});
 
 const AddSpecimen = () => {
   const [name, setName] = useState("");
@@ -37,14 +31,12 @@ const AddSpecimen = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('image', image);
-      const response = await api.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const payload = {
+        name: name,
+        story: story,
+        image: image,
+      };
+      const response = await apiCalls.createPlant(payload);
       console.log('Upload success:', response.data);
     } catch (error){
       console.error(error);
@@ -68,10 +60,6 @@ const AddSpecimen = () => {
 
   const imageRemove = () => {
     setImage(null);
-  };
-
-  const imageUploadHandler = () => {
-
   };
 
   return (

@@ -37,13 +37,12 @@ const createPlant = async (payload) => {
     console.log(payload);
     try {
         const formData = new FormData();
-        formData.append("plantName", payload.plantName);
+        formData.append("name", payload.plantName);
         formData.append("story", payload.story);
         formData.append("image", payload.image);
-        formData.append("audio", payload.audio);
         console.log(formData);
 
-        const response = await api.post('/plant', formData, {
+        const response = await api.post('/upload', formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
