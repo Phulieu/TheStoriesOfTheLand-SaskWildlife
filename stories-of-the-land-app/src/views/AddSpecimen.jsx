@@ -22,7 +22,7 @@ const AddSpecimen = () => {
   const handleAudioChange = (e) => {
     const newFile = e.target.files[0];
     if (newFile) {
-        setAudio(URL.createObjectURL(newFile));
+        setAudio(newFile);
         console.log(newFile);
         
     }
@@ -32,13 +32,15 @@ const AddSpecimen = () => {
     e.preventDefault();
     try {
       const payload = {
-        name: name,
+        plantName: name,
         story: story,
         image: image,
+        audio: audio
       };
       const response = await apiCalls.createPlant(payload);
-      console.log('Upload success:', response.data);
+      console.log('Upload success:', response);
     } catch (error){
+      console.log("Este error:")
       console.error(error);
     }
   };
