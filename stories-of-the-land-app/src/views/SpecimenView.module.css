@@ -3,40 +3,64 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     background-color:#a5c6b5;
   }
   
   .image {
-    width: 90%;
-    height: auto;
+    width: 100vh;
+    height: 100vh;
     object-fit: cover;
-    border-radius: 18px;
+    position: relative;
+    /* border-radius: 18px; */
   }
   
+  /* body{
+    background: -webkit-linear-gradient(to right, #a5c6b5, #66bd46);
+    background: linear-gradient(to right, #93c481, #2f890f);
+    filter: blur(4px);
+  } */
   .info {
-    padding: 10px 45px;
-    background-color: #05396b;
-    color: #edf5e0;
+    /* padding: 10px 45px; */
+    /* background-color: #05396b; */
+    /* background-color: #1e91fd; */
+    /* background: -webkit-linear-gradient(to right, #a5c6b5, #66bd46);
+    background: linear-gradient(to right, #93c481, #2f890f); */
+    /* backdrop-filter: blur(10px); */
+    /* filter: blur(4px); */
+    backdrop-filter: blur(5px);
+    background-color: rgba(30, 100, 11, 0.587);
+    color: rgb(255, 255, 255);
+    position: absolute;
+    bottom: 10px;
     border-radius: 20px 20px 0 0;
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 50vh;
+    margin: 0;
   }
   
   .title {
     font-size: 3.5rem;
-    margin-bottom: 8px;
+    margin: auto;
+    display: block;
+    /* margin-bottom: 8px; */
   }
-  
+  .contain{
+    display: flex;
+    /* justify-content: space-evenly; */
+  }
   .audioContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
+    padding: 20px;
   }
   
   .label {
     flex: 1;
+    font-size: 20px;
+    font-weight: 600;
   }
   
   .audioButton {
@@ -52,7 +76,7 @@
     outline: none;
     position: relative;
     margin-left: 8px;
-    right: 102px;
+    /* right: 102px; */
   }
   
   .volume {
@@ -62,22 +86,28 @@
   }
   
   .story {
-    margin-top: 16px;
-    margin-bottom: 8px;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 600;
   }
   
+  h1{
+    text-align: center;
+  }
 
   .toggleButton {
     position: relative;
-    display: inline-block;
+    display: inline;
+    justify-content: right;
     width: 60px;
     height: 30px;
-    margin: 0;
-    vertical-align: top;
-    background: #edf5e0;
+    margin: auto;
+    padding-top: 10px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(22, 196, 120, 0.587);
     border: 1px solid #bbc1e1;
-    border-radius: 30px;
-    outline: none;
+    border-radius: 40px;
+    outline: solid #1a5c03;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -86,36 +116,45 @@
    }
 
    .toggleButton::after {
-    content: "";
-  
+    content: "EN";
+    text-align: center;
+    color: red;
+    font-weight: 500;
     display: inline-block;
     position: absolute;
     left: 2px;
     top: 2px;
-  
     width: 25px;
     height: 25px;
-    background-color: #06886c;
-    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 40px;
   
     transform: translateX(0);
     transition: all 0.3s cubic-bezier(0.2, 0.85, 0.32, 1.2);
   }
 
   .toggleButton:checked::after {
+    content: "FR";
+    text-align: center;
+    color: red;
+    font-weight: 500;
     transform: translateX(calc(100% + 3px));
-    background-color: #edf5e0;  
+    background-color: rgba(255, 255, 255, 0);  
   }
   .toggleButton:checked {
-    background-color: #06886c;
+    backdrop-filter: blur(5px);
+    background-color: rgba(169, 199, 107, 0.587);
   }
 
   .buttonContainer{
     display: flex;
-    align-items: center;
+    justify-content: right;
+    padding-right: 20px;
+    padding-bottom: 15px;
+    align-items: right;
     position: relative;
-    top: 64px;
-    right: -116px;
+    /* top: 64px; */
+    /* right: -116px; */
   }
 
   .frenchLabel {
@@ -124,3 +163,11 @@
     color: #edf5e0;
     font-weight: 600;
   }
+
+  
+div.line { 
+    /* margin: 25px 0; */
+    height: 1px;
+    background: black;
+    background: -webkit-gradient(linear, 0 0, 100% 0, from(rgb(234, 111, 209)), to(rgb(252, 128, 228)), color-stop(50%, rgb(114, 4, 96)));
+}

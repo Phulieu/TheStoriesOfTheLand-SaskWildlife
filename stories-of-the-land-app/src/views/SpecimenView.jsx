@@ -94,19 +94,25 @@ const SpecimenView = () => {
   return (
     <div className={styles.card}>
       <img src={specimen.image} alt="Tree" className={styles.image} />
-      <div className={styles.buttonContainer}>
-          <input type="checkbox" name="french" id="french" className={styles.toggleButton} onClick={handleLanguageToggle} />
-          <label htmlFor="french" className={styles.frenchLabel}>French</label>
-      </div>
+      
       <div className={styles.info}>
+        <div className={styles.contain}>
         <h1 className={styles.title}>{specimen.plantName}</h1>
-        <div className={styles.audioContainer}>
-          <span className={styles.label}>{language === "en" ? "Cree Pronunciation" : "Prononciation Cree" }</span>
+          <span className={styles.buttonContainer}>
+          <input type="checkbox" name="french" id="french" className={styles.toggleButton} onClick={handleLanguageToggle} />
+          {/* <label htmlFor="french" className={styles.frenchLabel}>French</label> */}
+      </span>
+      
+        </div>
+      {/* <div className={styles.line}></div> */}
+      <div className={styles.audioContainer}>
+          <label className={styles.label}>{language === "en" ? "Cree Pronunciation" : "Prononciation Cree" }</label>
           <button className={styles.audioButton} onClick={audioPlay}>
             <img src={volume} alt="Volume icon" className={styles.volume} />
           </button>
         </div>
-        <p className={styles.story}>{ specimen.story}</p> 
+        {/* <div className={styles.line}></div> */}
+        <p className={styles.story}>{ specimen.story}</p>
       </div>
     </div>
   );

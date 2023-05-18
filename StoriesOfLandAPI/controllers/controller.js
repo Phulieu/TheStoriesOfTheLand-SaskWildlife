@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 // import Plants 
 const Plant = require('../db/models/Plants');
 
@@ -136,6 +138,14 @@ const deletePlant = async (req, res) => {
     // delete the document
     Plant.findByIdAndRemove(req.params.id).then((plant) => {
         // on success
+        fs.unlinkSync(plant.image,function(err){
+            if(err) return console.log(err);
+            console.log('image deleted successfully');
+        });
+        fs.unlinkSync(plant.audio,function(err){
+            if(err) return console.log(err);
+            console.log('audio deleted successfully');
+        });
         return res.status(200).json({ success: true, message: "Plant deleted", data: plant });
     }).
         // on error
