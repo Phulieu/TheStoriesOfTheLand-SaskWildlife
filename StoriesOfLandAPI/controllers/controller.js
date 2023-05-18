@@ -55,34 +55,11 @@ const getPlantById = async (req, res) => {
  * @returns create a new plant object.
  */
 const createPlant = async (req, res) => {
-    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-      return res.status(400).json({ success: false, error: "You must provide plant information" });
-    }
-    const { plantName,story } = req.body;
-    const imageFile = req.files['image'][0];
-    const audioFile = req.files['audio'][0];
-    const plant = new Plant({ plantName, story, imageName: imageFile.originalname, audioName: audioFile.originalname });
-    plant.save()
-      .then(() => {
-        const imageDestination = path.join(__dirname, 'Images', imageFile.originalname);
-        const audioDestination = path.join(__dirname, 'audios', audioFile.originalname);
-        fs.rename(imageFile.path, imageDestination, (err) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).json({ success: false, error: 'Failed to save the image' });
-          }
-          fs.rename(audioFile.path, audioDestination, (err) => {
-            if (err) {
-              console.error(err);
-              return res.status(500).json({ success: false, error: 'Failed to save the audio' });
-            }
-            return res.status(200).json({ success: true, message: 'Plant created' });
-          });
-        });
-      })
-      .catch((err) => {
-        return res.status(400).json({ success: false, error: err });
-      });
+    // Handle uploaded files
+    console.log('Image file:', req.files['image'][0]);
+    console.log('Audio file:', req.files['audio'][0]);
+    // Return response
+    res.status(200).json({ message: 'File uploaded successfully' });
   };
 /**
  * This function updates a plant object on the API with the specified data.

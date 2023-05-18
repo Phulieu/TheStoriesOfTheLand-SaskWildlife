@@ -2,6 +2,7 @@
 const express = require('express');
 // imports the passport framework. 
 const passport = require('passport');
+const multer = require('multer');
 
 //imports the 'controller' module from the '../controllers' directory.
 const plantController = require('../controllers/controller');
@@ -13,6 +14,26 @@ const auth = require('../auth');
 
 //creates instance of the Express application.
 const router = express();
+
+// Set storage for uploaded files
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    if (file.fieldname === 'image') {
+      cb(null, 'Images/');
+    } else if (file.fieldname === 'audio') {
+      cb(null, 'audios/');
+    } else {
+      cb(new Error('Invalid fieldname'));
+    }
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+// Create multer upload instance
+const upload = multer({ storage });
+
 
 // auth
 router.post('/register', authController.register);
@@ -36,7 +57,7 @@ router.get('/plant/:id', plantController.getPlantById);
  * When a POST request is received at this URL,
  * the 'createPlant' function from the 'plantController' module is called.
  */
-router.post('/plant', auth.verifyUser, plantController.createPlant);
+router.post('/plant', upload.fields([{ name: 'image' }, { name: 'audio' }]), plantController.createPlant);
 
 /**
  * defines a route that handles PUT requests to the '/plant/:id' URL.

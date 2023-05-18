@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Specimen } from "../components";
+import { Link } from "react-router-dom";
 import {NavBar} from "../components";
 import apiCalls from "../api";
 import styles from "./SpecimenList.module.css";
@@ -40,6 +41,13 @@ const SpecimenList = () => {
     <div className={styles.viewContainer}>
     <NavBar/>
     <div className="container py-5">
+      <div className="row">
+          <div className="col text-end">
+            <Link to="/add-specimen" className="btn btn-primary mb-3">
+              + Add Specimen
+            </Link>
+          </div>
+      </div>
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {/* Map through the database */}
         {specimens.map((specimen) => (
