@@ -53,9 +53,11 @@ const SpecimenList = () => {
         {specimens.map((specimen) => (
           <div key={specimen._id} className="col" >
               <Specimen
+                id={specimen._id}
                 title={specimen.plantName}
                 url={`http://${backendURL}:3001` + specimen.image}
                 onClick={() => handleSpecimenClick(specimen)}
+                // SelectedSpecimenID = {selectedSpecimen._id}
               />
           </div>
         ))}
