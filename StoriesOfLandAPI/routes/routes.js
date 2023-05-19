@@ -17,18 +17,18 @@ const router = express();
 
 // Set storage for uploaded files
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    if (file.fieldname === 'image') {
-      cb(null, 'Images/');
-    } else if (file.fieldname === 'audio') {
-      cb(null, 'audios/');
-    } else {
-      cb(new Error('Invalid fieldname'));
+    destination: (req, file, cb) => {
+        if (file.fieldname === 'image') {
+            cb(null, 'Images/');
+        } else if (file.fieldname === 'audio') {
+            cb(null, 'audios/');
+        } else {
+            cb(new Error('Invalid fieldname'));
+        }
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
     }
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
 });
 
 // Create multer upload instance
@@ -37,7 +37,7 @@ const upload = multer({ storage });
 
 // auth
 router.post('/register', authController.register);
-router.post('/login', passport.authenticate('local', { session: false }), authController.login);
+router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 /**
  * defines a route that handles GET requests to the '/plant' URL.
