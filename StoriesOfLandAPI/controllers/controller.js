@@ -63,9 +63,10 @@ const createPlant = async (req, res) => {
       const imageFile = req.files['image'][0];
       const audioFile = req.files['audio'][0];
       // Get the filenames
-    const imageFilename = "/Images/"+Date.now()+imageFile.originalname;
-    const audioFilename = "/audios/"+Date.now()+audioFile.originalname;
-  
+    const imageFilename = "/Images/"+imageFile.originalname;
+    const audioFilename = "/audios/"+audioFile.originalname;
+    console.log("image"+imageFilename);
+    console.log("aud"+audioFilename);
        // Create a new instance of the Plant model with the extracted data
     const plant = new Plant({
         plantName,
@@ -73,10 +74,10 @@ const createPlant = async (req, res) => {
         story,
         audio: audioFilename,
       });
-  
+  console.log(plant);
       // Save the plant object to MongoDB
       await plant.save();
-  
+      
       return res.status(200).json({ success: true, message: 'Plant created' });
     } catch (error) {
       return res.status(400).json({ success: false, error: error.message });

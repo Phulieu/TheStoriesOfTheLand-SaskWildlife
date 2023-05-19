@@ -15,12 +15,15 @@ const setHeader = () => {
   return { headers };
 };
 
+
+
 // login
 const login = async (payload) => {
   const res = await api.post('/login', payload);
   sessionStorage.setItem("token", res.data.token);
   return res;
 };
+
 
 // API call to get all plants from the database
 const getAllPlants = async () => {
@@ -56,6 +59,9 @@ const createPlant = async (payload) => {
         throw error;
       }
 };
+
+
+
 
 // return API calls
 const apiCalls = {
