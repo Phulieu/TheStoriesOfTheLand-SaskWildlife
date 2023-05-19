@@ -32,6 +32,11 @@ const getPlantById = async (id) => {
   return api.get(`/plant/${id}`, setHeader());
 };
 
+//delete
+const deletePlant = async (id) => {
+  return api.delete(`/plant/${id}`);
+};
+
 // API call to create new specimen information in the database
 const createPlant = async (payload) => {
     console.log(payload);
@@ -62,6 +67,7 @@ const apiCalls = {
   getAllPlants,
   getPlantById,
   createPlant,
+  deletePlant,
   login,
 };
 

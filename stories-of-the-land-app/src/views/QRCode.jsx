@@ -9,7 +9,7 @@ import apiCalls from '../api';
 const backendURL = process.env.REACT_APP_BACKEND_IP || 'localhost';
 /**
  * QRGeneration page
- * @returns  Component
+ * @returns  {React.Component}
  */
 const QRGenerate = () => {
     const {SpecimenID} = useParams();
