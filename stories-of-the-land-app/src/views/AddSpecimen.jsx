@@ -56,7 +56,6 @@ const AddSpecimen = () => {
       if (newFile) {
           setImage(newFile);
           console.log(newFile);
-          
       }
   };
 
@@ -80,6 +79,7 @@ const AddSpecimen = () => {
               id="name"
               value={name}
               onChange={handleNameChange}
+              required
             />
           </div>
           <div className="mb-3">
@@ -92,6 +92,7 @@ const AddSpecimen = () => {
               rows="3"
               value={story}
               onChange={handleStoryChange}
+              required
             ></textarea>
           </div>
           <div className="mb-3">
@@ -122,7 +123,12 @@ const AddSpecimen = () => {
                   <p>Drag & Drop your image here or Click to browse files</p>
                 </div>
               )}
-              <input type="file" value="" onChange={onImageDrop} />
+              <input 
+                type="file"
+                accept="image/*"
+                onChange={onImageDrop}
+                required
+                />
             </div>
           </div>
           <div className="mb-3">
@@ -136,6 +142,7 @@ const AddSpecimen = () => {
                 className="form-control"
                 accept="audio/*"
                 onChange={handleAudioChange}
+                required
               />
               {audio && (
                 <div className="mt-3">
@@ -144,7 +151,6 @@ const AddSpecimen = () => {
               )}
             </div>
           </div>
-
           <button type="submit" className={styles.addSpecimenButton}>
             Add Specimen
           </button>
