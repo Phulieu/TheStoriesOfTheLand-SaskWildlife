@@ -55,12 +55,41 @@ const getPlantById = async (req, res) => {
  * @returns create a new plant object.
  */
 const createPlant = async (req, res) => {
-    // Handle uploaded files
-    console.log('Image file:', req.files['image'][0]);
-    console.log('Audio file:', req.files['audio'][0]);
-    // Return response
-    res.status(200).json({ message: 'File uploaded successfully' });
+    try {
+      // Extract the necessary data from the request body
+      const { plantName, story } = req.body;
+    
+      // Access the uploaded image and audio files using Multer
+      const imageFile = req.files['image'][0];
+      const audioFile = req.files['audio'][0];
+      // Get the filenames
+    const imageFilename = "/Images/"+imageFile.originalname;
+    const audioFilename = "/audios/"+audioFile.originalname;
+  
+       // Create a new instance of the Plant model with the extracted data
+    const plant = new Plant({
+        plantName,
+        image: imageFilename,
+        story,
+        audio: audioFilename,
+      });
+  
+      // Save the plant object to MongoDB
+      await plant.save();
+  
+      return res.status(200).json({ success: true, message: 'Plant created' });
+    } catch (error) {
+      return res.status(400).json({ success: false, error: error.message });
+    }
   };
+  
+    
+    
+    
+    
+    
+    
+    
 /**
  * This function updates a plant object on the API with the specified data.
  * @param {object} req 
@@ -77,6 +106,8 @@ const updatePlant = async (req, res) => {
     if (body.constructor === Object && Object.keys(body).length === 0) {
         return res.status(400).json({ success: false, error: "You must provide Plant information" });
     }
+
+
     // find the document that needs to be updated
     Plant.findById(id).then((plant) => {
         // update plant object using the body
