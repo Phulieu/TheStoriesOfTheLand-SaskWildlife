@@ -64,7 +64,7 @@ router.post('/plant', upload.fields([{ name: 'image' }, { name: 'audio' }]), pla
  * When a PUT request is received at this URL,
  * the 'updatePlant' function from the 'plantController' module is called.
  */
-router.put('/plant/:id', auth.verifyUser, plantController.updatePlant);
+router.put('/plant/:id', upload.fields([{ name: 'image' }, { name: 'audio' }]), plantController.updatePlant);
 
 /**
  * defines a route that handles DELETE requests to the '/plant/:id' URL.
