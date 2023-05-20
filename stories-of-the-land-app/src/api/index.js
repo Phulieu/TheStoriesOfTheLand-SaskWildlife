@@ -23,6 +23,12 @@ const login = async (payload) => {
   sessionStorage.setItem("token", res.data.token);
   return res;
 };
+// logout
+const logout = async (payload) => {
+  const res = await api.post('/logout');
+  sessionStorage.setItem("token", res.data.token);
+  return res;
+};
 
 
 // API call to get all plants from the database
@@ -69,6 +75,7 @@ const apiCalls = {
   getPlantById,
   createPlant,
   login,
+  logout
 };
 
 export default apiCalls;

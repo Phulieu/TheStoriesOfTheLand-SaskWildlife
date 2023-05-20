@@ -14,8 +14,13 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    const token = auth.getToken({ _id: req.user._id });
-    res.status(200).json({ success: true, token: token, message: "logged in" });
+    passport.authenticate('local', { session: false }, (err, user) => {
+        if (err || !user) {
+            return res.status(401).json({ success: false, error: "Invalid username or password" });
+        }
+        const token = auth.getToken({ _id: user._id });
+        return res.status(200).json({ success: true, token: token, message: "Logged in" });
+    })(req, res);
 };
 
 const logout = async (req, res) => {
