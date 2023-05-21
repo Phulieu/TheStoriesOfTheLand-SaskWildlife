@@ -146,11 +146,11 @@ const deletePlant = async (req, res) => {
     // delete the document
     Plant.findByIdAndRemove(req.params.id).then((plant) => {
         // on success
-        fs.unlinkSync(plant.image,function(err){
-            if(err) return console.log(err);
+        fs.unlink(plant.image,function(err){
+            if(err) return console.log(hi);
             console.log('image deleted successfully');
         });
-        fs.unlinkSync(plant.audio,function(err){
+        fs.unlink(plant.audio,function(err){
             if(err) return console.log(err);
             console.log('audio deleted successfully');
         });

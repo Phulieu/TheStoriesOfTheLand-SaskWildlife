@@ -57,3 +57,10 @@
   .menuButton:hover {
     color: #f1f1f1;
   }
+  @media print
+  {    
+      .navbar
+      {
+          display: none !important;
+      }
+  }
