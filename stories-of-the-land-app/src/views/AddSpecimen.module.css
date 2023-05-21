@@ -32,13 +32,13 @@
     cursor: pointer;
 }
 
-.dropFileInput audio {
-    z-index: 1;
-}
+.dropFileInput.withPreview input[type="file"] {
+    pointer-events: none;
+  }
 
-.dropFileInput:hover,
-.dropFileInput.dragover {
-    opacity: 0.6;
+.dropFileInput:hover:not(.withPreview),
+.dropFileInput.dragover:not(.withPreview) {
+  opacity: 0.6;
 }
 
 .dropFileInputLabel {
