@@ -1,37 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Specimen } from "../components";
-import { Link } from "react-router-dom";
-import {NavBar} from "../components";
+import { Link, useLocation } from "react-router-dom";
+import { NavBar } from "../components";
 import apiCalls from "../api";
 import styles from "./SpecimenList.module.css";
 
-const backendURL = process.env.REACT_APP_BACKEND_IP || 'localhost';
-/**
- * Component to generate Admin view of the specimen database
- * @returns Admin view for the database
- */
+const backendURL = process.env.REACT_APP_BACKEND_IP || "localhost";
+
 const SpecimenList = () => {
   const [specimens, setSpecimens] = useState([]);
   const [selectedSpecimen, setSelectedSpecimen] = useState(null);
+  const listRef = useRef(null);
+  const location = useLocation();
 
-  /**
-   * API call to get all plants
-   */
   useEffect(() => {
     apiCalls
       .getAllPlants()
       .then((res) => {
         setSpecimens(res.data.data);
+
+        // Check for query parameter "scrollToBottom"
+        const queryParams = new URLSearchParams(location.search);
+        const scrollToBottom = queryParams.get("scrollToBottom");
+
+        if (scrollToBottom === "true") {
+          listRef.current.scrollIntoView({ behavior: "smooth" });
+        }
       })
       .catch(console.error);
-  }, []);
+  }, [location]);
 
-  // Functiont to view specimen modal
   const handleSpecimenClick = (specimen) => {
     setSelectedSpecimen(specimen);
   };
 
-  // function to close modal
   const handleCloseModal = () => {
     setSelectedSpecimen(null);
   };
@@ -61,6 +63,7 @@ const SpecimenList = () => {
               />
           </div>
         ))}
+        <div ref={listRef}/>
       </div>
       {/* Modal view */}
       {selectedSpecimen && (
