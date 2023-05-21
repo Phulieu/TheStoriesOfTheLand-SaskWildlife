@@ -65,9 +65,10 @@ const createPlant = async (req, res) => {
       const imageFile = req.files['image'][0];
       const audioFile = req.files['audio'][0];
       // Get the filenames
-    const imageFilename = "/Images/"+Date.now()+imageFile.originalname;
-    const audioFilename = "/audios/"+Date.now()+audioFile.originalname;
-  
+    const imageFilename = "/Images/"+imageFile.originalname;
+    const audioFilename = "/audios/"+audioFile.originalname;
+    console.log("image"+imageFilename);
+    console.log("aud"+audioFilename);
        // Create a new instance of the Plant model with the extracted data
     const plant = new Plant({
         plantName,
@@ -75,23 +76,17 @@ const createPlant = async (req, res) => {
         story,
         audio: audioFilename,
       });
-  
+  console.log(plant);
       // Save the plant object to MongoDB
       await plant.save();
-  
+      
       return res.status(200).json({ success: true, message: 'Plant created' });
     } catch (error) {
       return res.status(400).json({ success: false, error: error.message });
     }
   };
   
-    
-    
-    
-    
-    
-    
-    
+
 /**
  * This function updates a plant object on the API with the specified data.
  * @param {object} req 
@@ -99,42 +94,55 @@ const createPlant = async (req, res) => {
  * @returns update a plant object.
  */
 const updatePlant = async (req, res) => {
-    // stored request id to a constant
-    const id = req.params.id;
-    // stored request body to a constant
-    const body = req.body;
-    // The code is checking to see if the information sent in the body is an object,
-    // and if so, checking to see if there are keys. If there are no keys, then the object is empty.
-    if (body.constructor === Object && Object.keys(body).length === 0) {
-        return res.status(400).json({ success: false, error: "You must provide Plant information" });
-    }
+    try {
+        // stored request id to a constant
+        const id = req.params.id;
+        // stored request body to a constant
+        const body = req.body;
+        // Extract the necessary data from the request body
+        const { plantName, story } = body;
 
+        // Access the uploaded image and audio files using Multer
+        const imageFile = req.files['image'][0];
+        const audioFile = req.files['audio'][0];
+        // Get the filenames
+        const imageFilename = "/Images/" + imageFile.originalname;
+        const audioFilename = "/audios/" + audioFile.originalname;
 
-    // find the document that needs to be updated
-    Plant.findById(id).then((plant) => {
-        // update plant object using the body
-        plant.plantName = body.plantName;
-        plant.image = body.image;
-        plant.story = body.story;
-        plant.audio = body.audio;
+        // The code is checking to see if the information sent in the body is an object,
+        // and if so, checking to see if there are keys. If there are no keys, then the object is empty.
+        if (body.constructor === Object && Object.keys(body).length === 0) {
+            return res.status(400).json({ success: false, error: "You must provide Plant information" });
+        }
 
-        plant.save().then(() => {
-            // on success
-            return res.status(200).json({
-                success: true,
-                id: plant['_id'],
-                message: "Plant updated"
-            });
+        // find the document that needs to be updated
+        Plant.findById(id).then((plant) => {
+            // update plant object using the body
+            plant.plantName = plantName;
+            plant.image = imageFilename;
+            plant.story = story;
+            plant.audio = audioFilename;
+
+            plant.save().then(() => {
+                // on success
+                return res.status(200).json({
+                    success: true,
+                    id: plant['_id'],
+                    message: "Plant updated"
+                });
+            }).
+                // on error
+                catch((err) => {
+                    return res.status(400).json({ success: false, error: err });
+                });
         }).
-            // on error
+            // callback function contains an error, a respond with status 400 and the error message
             catch((err) => {
                 return res.status(400).json({ success: false, error: err });
             });
-    }).
-        // callback function contains an error, a respond with status 400 and the error message
-        catch((err) => {
-            return res.status(400).json({ success: false, error: err });
-        });
+    } catch (error) {
+        return res.status(400).json({ success: false, error: error.message });
+    }
 };
 
 /**

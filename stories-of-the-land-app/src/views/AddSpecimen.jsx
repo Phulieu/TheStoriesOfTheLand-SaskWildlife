@@ -22,9 +22,10 @@ const AddSpecimen = () => {
   const handleAudioChange = (e) => {
     const newFile = e.target.files[0];
     if (newFile) {
-        setAudio(newFile);
-        console.log(newFile);
-        
+      const modifiedFileName = Date.now() + '-' + newFile.name;
+      const modifiedFile = new File([newFile], modifiedFileName, { type: newFile.type });
+      setAudio(modifiedFile);
+      console.log(modifiedFile);
     }
   };
 
@@ -52,11 +53,13 @@ const AddSpecimen = () => {
   const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
   const onImageDrop = (e) => {
-      const newFile = e.target.files[0];
-      if (newFile) {
-          setImage(newFile);
-          console.log(newFile);
-      }
+    const newFile = e.target.files[0];
+    if (newFile) {
+      const modifiedFileName = Date.now() + '-' + newFile.name;
+      const modifiedFile = new File([newFile], modifiedFileName, { type: newFile.type });
+      setImage(modifiedFile);
+      console.log(modifiedFile);
+    }
   };
 
   const imageRemove = () => {
