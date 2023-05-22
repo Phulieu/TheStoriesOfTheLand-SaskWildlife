@@ -23,8 +23,8 @@
   } */
   .info {
     padding: 10px 45px;
-    background-color: #05396b;
-    color: #edf5e0;
+    background-color: #1a3c34;
+    color: #d2e0d4;
     border-radius: 20px 20px 0 0;
     display: flex;
     flex-direction: column;
@@ -36,13 +36,7 @@
   
   .title {
     font-size: 3.5rem;
-    margin: auto;
-    display: block;
-    /* margin-bottom: 8px; */
-  }
-  .contain{
-    display: flex;
-    /* justify-content: space-evenly; */
+    margin: 15px 0px;
   }
   .audioContainer {
     display: flex;
@@ -70,7 +64,7 @@
     outline: none;
     position: relative;
     margin-left: 8px;
-    /* right: 102px; */
+    right: 62px;
   }
   
   .volume {
@@ -106,6 +100,7 @@
     -moz-appearance: none;
     appearance: none;
     transition: all 0.3s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+
    }
 
    .toggleButton::after {
@@ -145,8 +140,8 @@
     padding-bottom: 15px;
     align-items: right;
     position: relative;
-    /* top: 64px; */
-    /* right: -116px; */
+    top: 55px;
+    right: -111px;
   }
 
   .frenchLabel {
