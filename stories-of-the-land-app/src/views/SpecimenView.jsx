@@ -4,6 +4,9 @@ import styles from "./SpecimenView.module.css";
 import apiCalls from "../api";
 import volume from "../volume-up.svg";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const backendURL = process.env.REACT_APP_BACKEND_IP || "localhost";
 
 /**
 This component displays a specimen's details and allows the user to toggle between English and French language.
@@ -64,7 +67,7 @@ const SpecimenView = () => {
     This function plays the audio file associated with the specimen.
   */
   function audioPlay() {
-    new Audio(specimen.audio).play();
+    new Audio(`http://${backendURL}:3001`+specimen.audio).play();
   }
 
   /**
@@ -92,21 +95,23 @@ const SpecimenView = () => {
 
   
   return (
-    <div className={styles.card}>
-      <img src={specimen.image} alt="Tree" className={styles.image} />
-      <div className={styles.buttonContainer}>
-          <input type="checkbox" name="french" id="french" className={styles.toggleButton} onClick={handleLanguageToggle} />
-          <label htmlFor="french" className={styles.frenchLabel}>French</label>
+    <div className={`${styles.card} card`}>
+      <img src={`http://${backendURL}:3001`+specimen.image} alt="Tree" className={`${styles.image}`} />
+      <div className={`${styles.buttonContainer} card-body`}>
+        <div >
+          <input type="checkbox" className={styles.toggleButton} id="french" onClick={handleLanguageToggle} />
+          <label className={styles.frenchLabel} htmlFor="french">{language === "en" ? "French" : "Français"}</label>
+        </div>
       </div>
-      <div className={styles.info}>
-        <h1 className={styles.title}>{specimen.plantName}</h1>
+      <div className={`${styles.info} card-body`}>
+        <h1 className={`${styles.title} card-title`}>{specimen.plantName}</h1>
         <div className={styles.audioContainer}>
           <span className={styles.label}>{language === "en" ? "Cree Pronunciation" : "Prononciation Cree" }</span>
-          <button className={styles.audioButton} onClick={audioPlay}>
+          <button className={`btn ${styles.audioButton}`} onClick={audioPlay}>
             <img src={volume} alt="Volume icon" className={styles.volume} />
           </button>
         </div>
-        <p className={styles.story}>{ specimen.story}</p> 
+        <p className={`${styles.story} card-text`}>{ specimen.story}</p> 
       </div>
     </div>
   );
