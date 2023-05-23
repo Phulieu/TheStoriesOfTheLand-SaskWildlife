@@ -50,9 +50,11 @@ function Specimen({ id,title, url, onClick }) {
             <FontAwesomeIcon icon={faQrcode} />
           </button></Link>
           {/* Button for edit/ update specimen informaton */}
+          <Link to={`/plant/${id}/Update`}>
           <button className={`btn btn-primary mr-2 ${styles.button} ${styles.buttonNormal}`}>
-            <FontAwesomeIcon icon={faEdit} />
+            <FontAwesomeIcon icon={faEdit}  />
           </button>
+          </Link>
           {/* Button to delete specimen from database */}
           <button className={`btn btn-danger ${styles.button} ${styles.buttonDelete}`} onClick={deleteSpecimen}>
             <FontAwesomeIcon icon={faTrash} />

@@ -17,7 +17,9 @@ const router = express();
 
 // Set storage for uploaded files
 const storage = multer.diskStorage({
+  
     destination: (req, file, cb) => {
+        console.log("reached root");
         if (file.fieldname === 'image') {
             cb(null, 'Images/');
         } else if (file.fieldname === 'audio') {

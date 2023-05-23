@@ -49,14 +49,15 @@ const deletePlant = async (id) => {
 // API call to create new specimen information in the database
 const createPlant = async (payload) => {
     console.log(payload);
+
     try {
         const formData = new FormData();
         formData.append("plantName", payload.plantName);
         formData.append("story", payload.story);
         formData.append("image", payload.image);
         formData.append("audio", payload.audio);
-        console.log([...formData]);
-
+       // console.log("Form data"+[...formData]);
+        console.log("working...");
 
         const response = await api.post('/plant', formData, {
             headers: {
@@ -71,6 +72,38 @@ const createPlant = async (payload) => {
       }
 };
 
+// API call to create new specimen information in the database
+const updatePlant = async (payload,id) => {
+  console.log(" payload name"+payload.plantName );
+  console.log(" payload story"+payload.story );
+  console.log(" payload image"+payload.image.name );
+  console.log(" payload audio"+payload.audio);
+  
+  try {
+      const formData = new FormData();
+      formData.append("plantName", payload.plantName);
+      formData.append("story", payload.story);
+      formData.append("image", payload.image);
+      formData.append("audio", payload.audio);
+     console.log("form data"+[...formData]);
+
+
+      const response = await api.put(`/plant/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      console.log("response from  server"+response)
+      return response.data;
+    } catch (error) {
+      console.error("Create plant error:", error.response);
+      throw error;
+    }
+};
+
+
+
+
 
 
 
@@ -81,7 +114,8 @@ const apiCalls = {
   createPlant,
   deletePlant,
   login,
-  logout
+  logout,
+  updatePlant
 };
 
 export default apiCalls;

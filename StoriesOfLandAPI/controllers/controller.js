@@ -2,6 +2,8 @@ const fs = require('fs');
 const serverPath = 'E:/sdc2023-proj602-group1/StoriesOfLandAPI';
 // import Plants 
 const Plant = require('../db/models/Plants');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * This function handles the GET request to retrieve all plant records from the database.
@@ -57,6 +59,8 @@ const getPlantById = async (req, res) => {
  * @returns create a new plant object.
  */
 const createPlant = async (req, res) => {
+
+    console.log("plant created");
     try {
       // Extract the necessary data from the request body
       const { plantName, story } = req.body;
@@ -95,56 +99,83 @@ const createPlant = async (req, res) => {
  */
 const updatePlant = async (req, res) => {
     try {
-        // stored request id to a constant
-        const id = req.params.id;
-        // stored request body to a constant
-        const body = req.body;
-        // Extract the necessary data from the request body
-        const { plantName, story } = body;
-
-        // Access the uploaded image and audio files using Multer
-        const imageFile = req.files['image'][0];
-        const audioFile = req.files['audio'][0];
-        // Get the filenames
-        const imageFilename = "/Images/" + imageFile.originalname;
-        const audioFilename = "/audios/" + audioFile.originalname;
-
-        // The code is checking to see if the information sent in the body is an object,
-        // and if so, checking to see if there are keys. If there are no keys, then the object is empty.
-        if (body.constructor === Object && Object.keys(body).length === 0) {
-            return res.status(400).json({ success: false, error: "You must provide Plant information" });
-        }
-
-        // find the document that needs to be updated
-        Plant.findById(id).then((plant) => {
-            // update plant object using the body
-            plant.plantName = plantName;
-            plant.image = imageFilename;
-            plant.story = story;
-            plant.audio = audioFilename;
-
-            plant.save().then(() => {
-                // on success
-                return res.status(200).json({
-                    success: true,
-                    id: plant['_id'],
-                    message: "Plant updated"
-                });
-            }).
-                // on error
-                catch((err) => {
-                    return res.status(400).json({ success: false, error: err });
-                });
-        }).
-            // callback function contains an error, a respond with status 400 and the error message
-            catch((err) => {
-                return res.status(400).json({ success: false, error: err });
+      console.log("Update method");
+      console.log("update" + req.body.plantName);
+      const id = req.params.id;
+      console.log(id);
+      const body = req.body;
+      const { plantName, story } = body;
+      console.log("plant Name" + plantName);
+  
+      const imageFile = req.files['image'][0];
+      const audioFile = req.files['audio'][0];
+      console.log("image file" + imageFile);
+      console.log("audio file" + audioFile);
+  
+      const imageFilename = "/Images/" + imageFile.originalname;
+      const audioFilename = "/audios/" + audioFile.originalname;
+  
+      Plant.findById(id)
+        .then(async (plant) => {
+          console.log("inside findById");
+  
+          // Check if the image file has changed
+          if (plant.image !== imageFilename) {
+            console.log("checking.....");
+            // Delete the old image file from the server
+            const oldImageFile = plant.image;
+            console.log("old image file:" + oldImageFile);
+            console.log("new image file: " + imageFilename);
+            await deleteFile(oldImageFile);
+          }
+  
+          // Check if the audio file has changed
+          if (plant.audio !== audioFilename) {
+            console.log("checking audio");
+            // Delete the old audio file from the server
+            const oldAudioFile = plant.audio;
+            await deleteFile(oldAudioFile);
+          }
+          console.log("db update");
+  
+          plant.plantName = plantName;
+          plant.image = imageFilename;
+          plant.story = story;
+          plant.audio = audioFilename;
+  
+          plant
+            .save()
+            .then(() => {
+              return res.status(200).json({
+                success: true,
+                id: plant['_id'],
+                message: "Plant updated",
+              });
+            })
+            .catch((err) => {
+              return res.status(400).json({ success: false, error: err });
             });
+        })
+        .catch((err) => {
+          return res.status(400).json({ success: false, error: err });
+        });
     } catch (error) {
-        return res.status(400).json({ success: false, error: error.message });
+      return res.status(400).json({ success: false, error: error.message });
     }
-};
-
+  };
+  
+  const deleteFile = (filePath) => {
+    try {
+      const absoluteFilePath = path.join(__dirname, '../', filePath);
+      fs.unlinkSync(absoluteFilePath);
+      console.log('File deleted');
+    } catch (err) {
+      console.log('Error deleting file:', err);
+      throw err;
+    }
+  };
+  
+  
 /**
  * This function deletes a plant object on the API.
  * @param {object} req 
