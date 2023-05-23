@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const backendURL = process.env.REACT_APP_BACKEND_IP || 'localhost';
-console.log(backendURL)
+
 // Base URL with axios
 const api = axios.create({
   baseURL: `http://${backendURL}:3001/api`,
@@ -39,6 +39,11 @@ const getAllPlants = async () => {
 // API call to get plant by ID from the database
 const getPlantById = async (id) => {
   return api.get(`/plant/${id}`, setHeader());
+};
+
+//delete
+const deletePlant = async (id) => {
+  return api.delete(`/plant/${id}`, setHeader());
 };
 
 // API call to create new specimen information in the database
@@ -107,6 +112,7 @@ const apiCalls = {
   getAllPlants,
   getPlantById,
   createPlant,
+  deletePlant,
   login,
   logout,
   updatePlant

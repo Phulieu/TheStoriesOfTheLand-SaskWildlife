@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import styles from "./Specimen.module.css";
 import { Link } from 'react-router-dom';
+import apiCalls from '../../api';
 
 /**
  * Component to render specimen view for Admin
@@ -11,6 +12,16 @@ import { Link } from 'react-router-dom';
  * @returns Specimen view 
  */
 function Specimen({ id,title, url, onClick }) {
+
+  function deleteSpecimen () {
+    if(window.confirm('Are you sure you want to delete this Specimen?')) {
+      apiCalls.deletePlant(id).then( () => {
+          window.location.reload();
+      }).catch( (err) => {
+          console.log(err);
+      });
+  }
+  }
   return (
     <div className={`card ${styles.card}`}>
     {/* // Specimen Card */}
@@ -45,7 +56,7 @@ function Specimen({ id,title, url, onClick }) {
           </button>
           </Link>
           {/* Button to delete specimen from database */}
-          <button className={`btn btn-danger ${styles.button} ${styles.buttonDelete}`}>
+          <button className={`btn btn-danger ${styles.button} ${styles.buttonDelete}`} onClick={deleteSpecimen}>
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
