@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const serverPath = 'E:/sdc2023-proj602-group1/StoriesOfLandAPI';
 // import Plants 
 const Plant = require('../db/models/Plants');
 
@@ -154,13 +154,11 @@ const deletePlant = async (req, res) => {
     // delete the document
     Plant.findByIdAndRemove(req.params.id).then((plant) => {
         // on success
-        fs.unlink(plant.image,function(err){
-            if(err) return console.log(hi);
-            console.log('image deleted successfully');
+        fs.unlink(serverPath + plant.image,function(err){
+            if(err) return res.status(400).json({ success: false, message: err });
         });
-        fs.unlink(plant.audio,function(err){
-            if(err) return console.log(err);
-            console.log('audio deleted successfully');
+        fs.unlink(serverPath + plant.audio,function(err){
+            if(err) return res.status(400).json({ success: false, message: err });
         });
         return res.status(200).json({ success: true, message: "Plant deleted", data: plant });
     }).
