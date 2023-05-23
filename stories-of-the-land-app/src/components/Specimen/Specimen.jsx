@@ -15,6 +15,7 @@ function Specimen({ id,title, url, onClick }) {
 
   function deleteSpecimen () {
     if(window.confirm('Are you sure you want to delete this Specimen?')) {
+      
       apiCalls.deletePlant(id).then( () => {
           window.location.reload();
       }).catch( (err) => {

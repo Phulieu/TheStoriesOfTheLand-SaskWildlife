@@ -73,7 +73,7 @@ router.put('/plant/:id', upload.fields([{ name: 'image' }, { name: 'audio' }]), 
  * When a DELETE request is received at this URL,
  * the 'deletePlant' function from the 'plantController' module is called.
  */
-router.delete('/plant/:id', auth.verifyUser, plantController.deletePlant);
+router.delete('/plant/:id', plantController.deletePlant);
 
 //exports the 'router' constant so that it can be used by other modules in the application
 module.exports = router;
