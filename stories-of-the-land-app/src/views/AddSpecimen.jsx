@@ -192,9 +192,16 @@
               />
             </div>
           </div>
+          <div className={styles.buttonsContainer}> 
             <button type="submit" className={styles.addSpecimenButton}>
               Add Specimen
             </button>
+            <button className={styles.cancelButton} onClick={()=> {
+              alert("Are you sure you want to cancel creation of specimen?");
+              navigate("/plant/list");
+            }}>Cancel</button>
+          </div>
+           
           </form>
         </div>
       </>
