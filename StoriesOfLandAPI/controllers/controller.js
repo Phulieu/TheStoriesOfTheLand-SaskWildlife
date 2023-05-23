@@ -2,7 +2,6 @@ const fs = require('fs');
 const serverPath = 'E:/sdc2023-proj602-group1/StoriesOfLandAPI';
 // import Plants 
 const Plant = require('../db/models/Plants');
-const fs = require('fs');
 const path = require('path');
 
 /**
@@ -104,6 +103,7 @@ const updatePlant = async (req, res) => {
       const id = req.params.id;
       console.log(id);
       const body = req.body;
+
       const { plantName, story } = body;
       console.log("plant Name" + plantName);
   
@@ -182,21 +182,28 @@ const updatePlant = async (req, res) => {
  * @param {object} res 
  */
 const deletePlant = async (req, res) => {
+
+        console.log(req.body);
+         const id = req.params.id;
+        Plant.findById(id).then(async (plant)=>{
+
+       //   console.log(plant);
+
+
+        });
     // delete the document
     Plant.findByIdAndRemove(req.params.id).then((plant) => {
-        // on success
-        fs.unlink(serverPath + plant.image,function(err){
-            if(err) return res.status(400).json({ success: false, message: err });
+
+          console.log(plant);
+          deleteFile(plant.image);
+          deleteFile(plant.audio);
+
+
+
+      
         });
-        fs.unlink(serverPath + plant.audio,function(err){
-            if(err) return res.status(400).json({ success: false, message: err });
-        });
-        return res.status(200).json({ success: true, message: "Plant deleted", data: plant });
-    }).
-        // on error
-        catch((err) => {
-            return res.status(400).json({ sucess: false, error: err });
-        });
+
+
 };
 
 /**
