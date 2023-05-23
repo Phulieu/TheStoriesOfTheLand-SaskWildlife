@@ -1,12 +1,12 @@
-const UserInput = ({ setValue, initialValue, type = "text" }) => {
+const UserInput = ({setValue, initialValue, type ="text"}) => {
     return (
-        <input
-            type={type}
+        <input 
+            type = {type}
             placeholder={initialValue}
-            style={{ marginBottom: "5px" }}
+            style={ {marginBottom: "5px"}}  
             onChange={(e) => {
                 setValue(e.target.value);
-            }
+                }
             }
         />
 

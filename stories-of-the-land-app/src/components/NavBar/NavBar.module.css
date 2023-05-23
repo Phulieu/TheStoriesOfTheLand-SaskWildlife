@@ -6,61 +6,17 @@
     background-color: #0f2b37;
 }
 
-.menu {
-    display: none;
-    position: absolute;
-    top: 80%;
-    right: 0px;
-    z-index: 10;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-.menu.open {
-    display: block;
+.logout {
+  display: flex;
+  align-items: center;
+  color: white;
+  margin-right: 10px;
+  cursor: pointer;
 }
-.menuList {
-    list-style: none;
-    padding: 8px;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    min-width: 120px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menuList li {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .menuList li:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .menuButton {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: 10px;
-    position: relative;
-  }
-  
-  .menuButton:focus {
-    outline: none;
-  }
-  
-  .menuButton:hover {
-    color: #f1f1f1;
-  }
-  @media print
-  {    
-      .navbar
-      {
-          display: none !important;
-      }
-  }
+.logoutTitle {
+  margin-right: 7px;
+}
+
+.logoutIcon {
+  transform: translateY(17%);
+}
