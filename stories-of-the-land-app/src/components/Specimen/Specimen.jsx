@@ -3,6 +3,8 @@ import { faEdit, faTrash, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import styles from "./Specimen.module.css";
 import { Link } from 'react-router-dom';
 import apiCalls from '../../api';
+import { useNavigate } from 'react-router-dom';
+
 
 /**
  * Component to render specimen view for Admin
@@ -11,16 +13,21 @@ import apiCalls from '../../api';
  * @param { onClick } funtion to handle event
  * @returns Specimen view 
  */
+
 function Specimen({ id,title, url, onClick }) {
+  const navigate = useNavigate();
 
   function deleteSpecimen () {
     if(window.confirm('Are you sure you want to delete this Specimen?')) {
       
       apiCalls.deletePlant(id).then( () => {
-          window.location.reload();
+        
+        //  window.location.reload();
+
       }).catch( (err) => {
           console.log(err);
       });
+      navigate("/plant/list");
   }
   }
   return (
