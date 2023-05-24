@@ -1,8 +1,9 @@
-const fs = require('fs');
-
 // import Plants 
 const Plant = require('../db/models/Plants');
+
+//import path and fs library
 const path = require('path');
+const fs = require('fs');
 
 /**
  * This function handles the GET request to retrieve all plant records from the database.
@@ -59,7 +60,6 @@ const getPlantById = async (req, res) => {
  */
 const createPlant = async (req, res) => {
 
-    console.log("plant created");
     try {
       // Extract the necessary data from the request body
       const { plantName, story } = req.body;
@@ -70,8 +70,7 @@ const createPlant = async (req, res) => {
       // Get the filenames
     const imageFilename = "/Images/"+imageFile.originalname;
     const audioFilename = "/audios/"+audioFile.originalname;
-    console.log("image"+imageFilename);
-    console.log("aud"+audioFilename);
+   
        // Create a new instance of the Plant model with the extracted data
     const plant = new Plant({
         plantName,
@@ -79,7 +78,7 @@ const createPlant = async (req, res) => {
         story,
         audio: audioFilename,
       });
-  console.log(plant);
+
       // Save the plant object to MongoDB
       await plant.save();
       
@@ -91,58 +90,51 @@ const createPlant = async (req, res) => {
   
 
 /**
- * This function updates a plant object on the API with the specified data.
+ * This function updates a plant object on the API with the specified data
+ * and remove the iamge and audio files it is updated.
  * @param {object} req 
  * @param {object} res 
  * @returns update a plant object.
  */
 const updatePlant = async (req, res) => {
-    try {
-      console.log("Update method");
-      console.log("update" + req.body.plantName);
-      const id = req.params.id;
-      console.log(id);
+    try {      
+      const id = req.params.id;      
       const body = req.body;
 
-      const { plantName, story } = body;
-      console.log("plant Name" + plantName);
-  
+      const { plantName, story } = body;  
+      //store image and audio files to variables. 
       const imageFile = req.files['image'][0];
-      const audioFile = req.files['audio'][0];
-      console.log("image file" + imageFile);
-      console.log("audio file" + audioFile);
-  
+      const audioFile = req.files['audio'][0];  
+
+      //concatenate the folders names along with the file name before storing to the db.
       const imageFilename = "/Images/" + imageFile.originalname;
-      const audioFilename = "/audios/" + audioFile.originalname;
-  
+      const audioFilename = "/audios/" + audioFile.originalname; 
+
+      //find the specimen information to update the values 
       Plant.findById(id)
-        .then(async (plant) => {
-          console.log("inside findById");
-  
-          // Check if the image file has changed
-          if (plant.image !== imageFilename) {
-            console.log("checking.....");
-            // Delete the old image file from the server
-            const oldImageFile = plant.image;
-            console.log("old image file:" + oldImageFile);
-            console.log("new image file: " + imageFilename);
+        .then(async (plant) => {      
+            // Check if the image file has changed
+          if (plant.image !== imageFilename) {         
+            
+            const oldImageFile = plant.image;  
+            // Delete the old image file from the server by invoking delete method.         
             await deleteFile(oldImageFile);
-          }
-  
+          }  
           // Check if the audio file has changed
-          if (plant.audio !== audioFilename) {
-            console.log("checking audio");
-            // Delete the old audio file from the server
+          if (plant.audio !== audioFilename) {           
+           
             const oldAudioFile = plant.audio;
+             // Delete the old audio file from the server by invoking delete method.
             await deleteFile(oldAudioFile);
-          }
-          console.log("db update");
-  
+          }        
+          
+          //assign new values to the plant object.
           plant.plantName = plantName;
           plant.image = imageFilename;
           plant.story = story;
           plant.audio = audioFilename;
-  
+          
+          //save updated values
           plant
             .save()
             .then(() => {
@@ -163,47 +155,36 @@ const updatePlant = async (req, res) => {
       return res.status(400).json({ success: false, error: error.message });
     }
   };
-  
+
+  /**
+   * This function removes the file from the specified path.
+   * @param {*} filePath - defines the path of the file to be removed.
+   *    */  
   const deleteFile = (filePath) => {
     try {
       const absoluteFilePath = path.join(__dirname, '../', filePath);
-      fs.unlinkSync(absoluteFilePath);
-      console.log('File deleted');
+      fs.unlinkSync(absoluteFilePath);     
     } catch (err) {
-      console.log('Error deleting file:', err);
+     
       throw err;
     }
   };
   
   
 /**
- * This function deletes a plant object on the API.
+ * This function deletes a plant object on the API and 
+ * removes corresponding audio and video files from the server folders.
  * @param {object} req 
  * @param {object} res 
  */
-const deletePlant = async (req, res) => {
-
-        console.log(req.body);
-         const id = req.params.id;
-        Plant.findById(id).then(async (plant)=>{
-
-       //   console.log(plant);
-
-
-        });
-    // delete the document
-    Plant.findByIdAndRemove(req.params.id).then((plant) => {
-
-          console.log(plant);
+const deletePlant = async (req, res) => {   
+     
+    // find the id and delete the corrsponding specimen document
+    Plant.findByIdAndRemove(req.params.id).then((plant) => {        
+      //invoke deleteFile method to remove image and audio.
           deleteFile(plant.image);
-          deleteFile(plant.audio);
-
-
-
-      
+          deleteFile(plant.audio);      
         });
-
-
 };
 
 /**

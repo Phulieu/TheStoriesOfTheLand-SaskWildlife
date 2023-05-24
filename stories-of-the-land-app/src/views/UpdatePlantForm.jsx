@@ -119,7 +119,7 @@ const UpdatePlantForm = () => {
           console.log(err);
         });
     }
-  }, [SpecimenID.SpecimenID]); 
+  }, [SpecimenID.SpecimenID, backendURL]); 
   
   
   
