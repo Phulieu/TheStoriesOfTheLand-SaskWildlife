@@ -132,6 +132,11 @@ const UpdatePlantForm = () => {
       console.log("calling api");
       const response = await apiCalls.updatePlant(payload,SpecimenID.SpecimenID);
       console.log('Update success:', response);
+      // Show alert
+      alert("Specimen updated successfully!");
+
+      // Redirect to "/"
+      navigate("/plant/list?scrollToBottom=true");
     } catch (error){
       console.log("Este error:")
       console.error(error);
@@ -228,9 +233,15 @@ const UpdatePlantForm = () => {
             </div>
           </div>
 
-          <button type="submit" className={styles.addSpecimenButton}>
-            Update Specimen
-          </button>
+          <div className={styles.buttonsContainer}> 
+            <button type="submit" className={styles.addSpecimenButton}>
+              Update Specimen
+            </button>
+            <button className={styles.cancelButton} onClick={()=> {
+              alert("Are you sure you want to cancel creation of specimen?");
+              navigate("/plant/list");
+            }}>Cancel</button>
+          </div>
         </form>
       </div>
     </>
