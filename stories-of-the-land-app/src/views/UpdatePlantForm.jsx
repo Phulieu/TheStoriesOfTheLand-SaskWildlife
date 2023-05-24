@@ -4,8 +4,13 @@ import apiCalls from '../api';
 import { NavBar } from '../components';
 import styles from "./UpdatePlantForm.module.css";
 
+/**
+ * Represents the form for updating a plant specimen.
+ * @returns {React.Component} The update plant form component.
+ */
+
 const UpdatePlantForm = () => {
- // const { id } = useParams();
+
   const SpecimenID = useParams();
   console.log(SpecimenID.SpecimenID);
   const apiCalled = useRef(false);
@@ -19,15 +24,26 @@ const UpdatePlantForm = () => {
   const wrapperRef = useRef(null);
   const backendURL = process.env.REACT_APP_BACKEND_IP || 'localhost';
 
+  /**
+   * Handles the change event for the plant name input field.
+   * @param {Object} event - The change event object.
+   */
   const handlePlantNameChange = (event) => {
     setPlantName(event.target.value);
 
   };
 
+  /**
+   * Handles the change event for the story textarea.
+   * @param {Object} event - The change event object.
+   */
   const handleStoryChange = (event) => {
     setStory(event.target.value);
   };
-
+  /**
+   * Handles the change event for the image file input.
+   * @param {Object} event - The change event object.
+   */
   const handleImageFileChange = (event) => {
 
     const newFile = event.target.files[0];
@@ -38,7 +54,10 @@ const UpdatePlantForm = () => {
       console.log("updated file of image:"+modifiedFile.name);
     }    
   };
-
+  /**
+   * Handles the change event for the audio file input.
+   * @param {Object} event - The change event object.
+   */
   const handleAudioFileChange = (event) => {
     const newFile = event.target.files[0];
     if (newFile) {
@@ -105,7 +124,11 @@ const UpdatePlantForm = () => {
   
   
 
-  
+  /**
+   * Handles the update form submission.
+   * Sends the updated plant specimen data to the API.
+   * @param {Object} e - The submit event object.
+   */
 
   const updateHandler = async (e) => {
     e.preventDefault();
@@ -147,6 +170,9 @@ const UpdatePlantForm = () => {
   const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
   const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
+  /**
+   * Removes the image file from the state.
+   */
   const imageRemove = () => {
     setImage(null);
   };

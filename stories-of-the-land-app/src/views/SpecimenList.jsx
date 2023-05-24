@@ -7,6 +7,10 @@ import styles from "./SpecimenList.module.css";
 
 const backendURL = process.env.REACT_APP_BACKEND_IP || "localhost";
 
+/**
+ * View all specimen page
+ * @returns  {React.Component}
+ */
 const SpecimenList = () => {
   const [specimens, setSpecimens] = useState([]);
   const [selectedSpecimen, setSelectedSpecimen] = useState(null);
@@ -29,11 +33,16 @@ const SpecimenList = () => {
       })
       .catch(console.error);
   }, [location]);
-
+  /**
+   * Handles the click event of a specimen.
+   * @param {Object} specimen - The clicked specimen object.
+   */
   const handleSpecimenClick = (specimen) => {
     setSelectedSpecimen(specimen);
   };
-
+  /**
+   * Handles the closing of the modal.
+   */
   const handleCloseModal = () => {
     setSelectedSpecimen(null);
   };
