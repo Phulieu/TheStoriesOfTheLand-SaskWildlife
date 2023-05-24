@@ -5,6 +5,11 @@
   import styles from "./AddSpecimen.module.css"
   import uploadImg from '../assets/cloud-upload-regular-240.png'
 
+  /**
+   * This component displays the Add Specimen form that allows the user to create a new specimen into the database
+   * @returns {React.Component}
+   */
+
   const AddSpecimen = () => {
     const [name, setName] = useState("");
     const [story, setStory] = useState("");
@@ -13,24 +18,26 @@
     const wrapperRef = useRef(null);
     const navigate = useNavigate();
 
+    /**
+     * This function handles the changes in the name input and set the value into the name state.
+     * @param {event} e 
+     */
     const handleNameChange = (e) => {
       setName(e.target.value);
     };
 
+    /**
+     * This function handles the changes in the story input and set the value into the story state.
+     * @param {event} e 
+     */
     const handleStoryChange = (e) => {
       setStory(e.target.value);
     };
 
-    const handleAudioChange = (e) => {
-      const newFile = e.target.files[0];
-      if (newFile) {
-        const modifiedFileName = Date.now() + '-' + newFile.name;
-        const modifiedFile = new File([newFile], modifiedFileName, { type: newFile.type });
-        setAudio(modifiedFile);
-        console.log(modifiedFile);
-      }
-    };
-
+    /**
+     * This function handles the form submission, creates a payload with the name, story, image and audio values and makes the api call to create a specimen.
+     * @param {event} e 
+     */
     const handleFormSubmit = async (e) => {
       e.preventDefault();
       try {
@@ -52,13 +59,29 @@
         console.error(error);
       }
     };
-
+    
+    /**
+     * Handles on drag enter event
+     * @returns {wrapperRef}
+     */
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
-
+    
+    /**
+     * Handles on drag leave event
+     * @returns {wrapperRef}
+     */
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
 
+    /**
+     * Handles on drop event
+     * @returns {wrapperRef}
+     */
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
+    /**
+     * This function handles the image on drop event and sets the value into the image state, a new file is created.
+     * @param {event} e 
+     */
     const onImageDrop = (e) => {
       const newFile = e.target.files[0];
       if (newFile) {
@@ -69,10 +92,17 @@
       }
     };
 
+    /**
+     * Set images state back to null.
+     */
     const imageRemove = () => {
       setImage(null);
     };
 
+    /**
+     * This functions handles the audio changes, creates a new audio file and sets the value into the audio state.
+     * @param {event} e 
+     */
     const handleAudioDrop = (e) => {
       const newFile = e.target.files[0];
       if (newFile) {
@@ -85,6 +115,9 @@
       }
     };
 
+    /**
+     * Set audio state back to null.
+     */
     const audioRemove = () => {
       setAudio(null);
     };
@@ -95,6 +128,7 @@
         <div className="container mt-4">
           <h2 className="text-center">Add New Specimen</h2>
           <form onSubmit={(e) => handleFormSubmit(e)}>
+            {/* Name Label Input */}
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
                 Name
@@ -108,6 +142,7 @@
                 required
               />
             </div>
+            {/* Story Label Input */}
             <div className="mb-3">
               <label htmlFor="story" className="form-label">
                 Story
@@ -192,6 +227,7 @@
               />
             </div>
           </div>
+          {/* Add Specimen Button */}
           <div className={styles.buttonsContainer}> 
             <button type="submit" className={styles.addSpecimenButton}>
               Add Specimen
