@@ -4,12 +4,22 @@ import { useNavigate } from "react-router-dom";
 import styles from "./LogInView.module.css";
 import apiCalls from "../api";
 
+/**
+ * Login page
+ * @returns  {React.Component}
+ */
 function LogInView() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
     const navigate = useNavigate();
+
+    /**
+     * Logs in the user by making an API call to authenticate the provided username and password.
+     * @param {string} username - The username to be used for login.
+     * @param {string} password - The password to be used for login.
+     */
 
     const loginUser = async (username, password) => {
         apiCalls
@@ -23,17 +33,29 @@ function LogInView() {
             });
     };
 
+    /**
+     * Handles key press events, specifically the Enter key.
+     * @param {Object} event - The key press event object.
+     */
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {
             loginUser(username, password);
         }
     };
-
+     /**
+     * Handles the change event for the username input field.
+     * @param {Object} event - The change event object.
+     */
     const handleUsernameChange = (event) => {
         setUsername(event);
         setErrorMessage("");
     };
 
+    
+    /**
+     * Handles the change event for the password input field.
+     * @param {Object} event - The change event object.
+     */
     const handlePasswordChange = (event) => {
         setPassword(event);
         setErrorMessage("");

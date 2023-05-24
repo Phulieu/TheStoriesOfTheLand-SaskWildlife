@@ -1,5 +1,5 @@
 const fs = require('fs');
-const serverPath = 'E:/sdc2023-proj602-group1/StoriesOfLandAPI';
+
 // import Plants 
 const Plant = require('../db/models/Plants');
 const path = require('path');
