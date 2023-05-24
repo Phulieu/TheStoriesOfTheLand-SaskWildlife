@@ -77,7 +77,13 @@
     object-fit: contain; /* Preserve the aspect ratio of the image */
 }
 
+.buttonsContainer {
+    width: 25rem;
+    margin: 0 auto;
+}
+
 .addSpecimenButton {
+    width: 12rem;
     background-color: #008080;
     color: #ffffff;
     border: none;
@@ -86,8 +92,26 @@
     font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    margin-right: 1rem;
 }
   
 .addSpecimenButton:hover {
     background-color: #006666;
+}
+
+.cancelButton {
+    width: 12rem;
+    background-color:#ffffff;
+    color: #008080;
+    border: 1px black solid;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.cancelButton:hover {
+    background-color: gray;
+    color: black;
 }

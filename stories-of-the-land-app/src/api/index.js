@@ -43,7 +43,9 @@ const getPlantById = async (id) => {
 
 //delete
 const deletePlant = async (id) => {
+  console.log("delete id "+id);
   return api.delete(`/plant/${id}`, setHeader());
+  
 };
 
 // API call to create new specimen information in the database
