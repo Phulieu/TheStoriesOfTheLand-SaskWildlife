@@ -1,6 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import styles from "./Specimen.module.css";
+import { Link } from 'react-router-dom';
+import apiCalls from '../../api';
+import { useNavigate } from 'react-router-dom';
+
 
 /**
  * Component to render specimen view for Admin
@@ -9,7 +13,23 @@ import styles from "./Specimen.module.css";
  * @param { onClick } funtion to handle event
  * @returns Specimen view 
  */
-function Specimen({ title, url, onClick }) {
+
+function Specimen({ id,title, url, onClick }) {
+  const navigate = useNavigate();
+
+  function deleteSpecimen () {
+    if(window.confirm('Are you sure you want to delete this Specimen?')) {
+      
+      apiCalls.deletePlant(id).then( () => {
+        
+        //  window.location.reload();
+
+      }).catch( (err) => {
+          console.log(err);
+      });
+      navigate("/plant/list");
+  }
+  }
   return (
     <div className={`card ${styles.card}`}>
     {/* // Specimen Card */}
@@ -33,15 +53,18 @@ function Specimen({ title, url, onClick }) {
         {/* Buttons for Delete, Update and Generate QR code */}
         <div className={`d-flex justify-content-center mt-auto ${styles.buttons}`}>
           {/* Button to generate QR code */}
+          <Link to={`/plant/${id}/QRCode`}>
           <button className={`btn btn-primary mr-2 ${styles.button} ${styles.buttonNormal}`}>
             <FontAwesomeIcon icon={faQrcode} />
-          </button>
+          </button></Link>
           {/* Button for edit/ update specimen informaton */}
+          <Link to={`/plant/${id}/Update`}>
           <button className={`btn btn-primary mr-2 ${styles.button} ${styles.buttonNormal}`}>
-            <FontAwesomeIcon icon={faEdit} />
+            <FontAwesomeIcon icon={faEdit}  />
           </button>
+          </Link>
           {/* Button to delete specimen from database */}
-          <button className={`btn btn-danger ${styles.button} ${styles.buttonDelete}`}>
+          <button className={`btn btn-danger ${styles.button} ${styles.buttonDelete}`} onClick={deleteSpecimen}>
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>

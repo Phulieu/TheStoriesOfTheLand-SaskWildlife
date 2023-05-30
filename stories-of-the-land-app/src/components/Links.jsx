@@ -1,9 +1,4 @@
 import {Link} from 'react-router-dom';
-import styled from 'styled-components';
-
-const List = styled.div.attrs({
-    className: 'navbar-nav me-auto'
-})``;
 
 /**
  * Returns component for navigation
@@ -12,10 +7,11 @@ const List = styled.div.attrs({
 const Links = () => {
     return(
         <>
-            <Link className="navbar-brand" to="/">Stories of the Land App</Link>
-            <List>
+            <Link className="navbar-brand" to="/plant/list">Stories of the Land App</Link>
+            <div className = 'navbar-nav me-auto'>
                 <Link className="nav-link" to="/plant/list">Specimens</Link>
-            </List>
+                <Link className="nav-link"> Feedback</Link>
+            </div>
         </>
     );
 };
