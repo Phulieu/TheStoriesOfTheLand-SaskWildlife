@@ -18,7 +18,7 @@ const QRGenerate = () => {
     const url = `http://${backendURL}:3000/plant/`;
 	  const [qr, setQr] = useState('');
     const calledAPI = useRef(false);
-    URL.current = url + SpecimenID.SpecimenID;
+    URL.current = url + SpecimenID;
 
     useEffect( ()=> {
       if(!calledAPI.current) {           
