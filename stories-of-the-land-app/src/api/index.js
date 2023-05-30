@@ -38,7 +38,7 @@ const getAllPlants = async () => {
 
 // API call to get plant by ID from the database
 const getPlantById = async (id) => {
-  return api.get(`/plant/${id}`, setHeader());
+  return api.get(`/plant/${id}`);
 };
 
 //delete
