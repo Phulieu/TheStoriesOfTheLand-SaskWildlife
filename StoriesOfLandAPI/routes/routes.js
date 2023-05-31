@@ -15,6 +15,8 @@ const plantController = require('../controllers/controller');
 const authController = require('../controllers/authController');
 //imports the 'auth' module
 const auth = require('../auth');
+//import the 'adminController' module from the '../controllers' directory.
+const adminController = require('../controllers/adminController');
 
 //creates instance of the Express application.
 const router = express();
@@ -103,6 +105,27 @@ router.put('/plant/:id', upload.fields([{ name: 'image' }, { name: 'audio' }]), 
  * the 'deletePlant' function from the 'plantController' module is called.
  */
 router.delete('/plant/:id', plantController.deletePlant);
+
+/**
+ * defines a route that handles GET requests to the '/userManagement' URL.
+ * When a GET request is received at this URL,
+ * the 'getAllUserAccount' function from the 'adminController' module is called.
+ */
+router.get('/userManagement', auth.verifyUser, adminController.getAllUserAccount);
+
+/**
+ * defines a route that handles DELETE requests to the '/userManagement/:id' URL.
+ * When a DELETE request is received at this URL,
+ * the 'deleteUserAccount' function from the 'adminController' module is called.
+ */
+router.delete('/userManagement/:id', auth.verifyUser, adminController.deleteUserAccount);
+
+/**
+ * defines a route that handles PUT requests to the '/userManagement/:id' URL.
+ * When a PUT request is received at this URL,
+ * the 'updateUserAccount' function from the 'adminController' module is called.
+ */
+router.put('/userManagement/:id', auth.verifyUser, adminController.updateUserAccount);
 
 //exports the 'router' constant so that it can be used by other modules in the application
 module.exports = router;
