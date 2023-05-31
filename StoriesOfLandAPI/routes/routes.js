@@ -60,7 +60,7 @@ const upload = multer({ storage });
  * defines a route that handles POST requests to the '/register' URL.
  * When a POST request is received at this URL,the register function from the 'authController' module is called.
  */
-router.post('/register', authController.register);
+router.post('/register', auth.verifyUser, authController.register);
 
 
 /**
