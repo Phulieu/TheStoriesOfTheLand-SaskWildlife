@@ -1,10 +1,10 @@
 .buttonsContainer {
-    width: 25rem;
+    width: 17rem;
     margin: 0 auto;
 }
 
-.addSpecimenButton {
-    width: 12rem;
+.addButton {
+    width: 8rem;
     background-color: #008080;
     color: #ffffff;
     border: none;
@@ -16,12 +16,12 @@
     margin-right: 1rem;
 }
   
-.addSpecimenButton:hover {
+.addButton:hover {
     background-color: #006666;
 }
 
 .cancelButton {
-    width: 12rem;
+    width: 8rem;
     background-color:#ffffff;
     color: #008080;
     border: 1px black solid;
@@ -36,3 +36,4 @@
     background-color: gray;
     color: black;
 }
+

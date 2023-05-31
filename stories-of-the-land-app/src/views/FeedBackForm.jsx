@@ -50,7 +50,7 @@ const FeedBackForm = (SpecimenID) => {
           console.log('Upload success:', response);
   
           // Show alert for feedback success
-          alert("Thank You! Your Feedback is appreciated.");
+          alert("Thank You! Your feedback is appreciated.");
   
           // Redirect to "/"
           navigate(`/plant/${SpecimenID}`);
@@ -62,7 +62,6 @@ const FeedBackForm = (SpecimenID) => {
 
     return(
         <>
-            
             <div className="container mt-4">
                 <h2 className="text-center">Feedback Form</h2>
                 <form onSubmit={(e) => handleFormSubmit(e)}>
@@ -109,12 +108,12 @@ const FeedBackForm = (SpecimenID) => {
                     ></textarea>
                     </div>
                     <div className={styles.buttonsContainer}> 
-                        <button type="submit" className={styles.addSpecimenButton}>
+                        <button type="submit" className={styles.addButton}>
                         Submit
                         </button>
                         <button className={styles.cancelButton} onClick={()=> {
-                            alert("Are you sure you want to cancel creation of specimen?");
-                            navigate("/plant/list");
+                            alert("Are you sure you don't what to share your feedback?");
+                            navigate(`/plant/${SpecimenID}`);
                             }}>Cancel
                         </button>
                     </div>
