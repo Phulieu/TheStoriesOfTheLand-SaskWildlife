@@ -121,10 +121,10 @@ const updatePlant = async (payload,id) => {
     }
 };
 
-
-
-
-
+// API call to create new feedback in the feedback database
+const createFeedback = async (payload) => {
+  return api.post('/feedback',payload);
+};
 
 
 // return API calls
@@ -135,6 +135,7 @@ const apiCalls = {
   deletePlant,
   login,
   logout,
+  createFeedback,
   updatePlant,
   getAllUser,
   registerUser,
