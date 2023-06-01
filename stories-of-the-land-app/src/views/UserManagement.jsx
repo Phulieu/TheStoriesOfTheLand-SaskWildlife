@@ -19,9 +19,44 @@ const UserManagement = () => {
                 })
                 .catch(console.error);
         }
-    }, []);
+    }, [users]);
 
+    const handleCreateUser = async (username) => {
+        const body = {
+            username : username,
+            status: "common"
+        }
+        apiCalls.registerUser(body).then( () => {
+            alert(`New user is created and send to ${username}`);
+            setModalState(false);
+            setUsername("");
+            window.location.reload();
+        }
+            
+        ).catch(console.error)
+    }
   
+    const handleDeleteUser = async (id) => {
+        
+        if (window.confirm("Are you sure to delete this user?")){
+            apiCalls.deleteUser(id).then(() =>{
+                window.location.reload();
+            }).catch((err) =>{
+                console.log(err);
+            });
+        }
+    }
+
+    const handleResetPassword = async (id,username) => {
+        const body = {username};
+        if (window.confirm("Are you sure to reset password this user?")){
+            apiCalls.resetPassword(id,body).then(() =>{
+                alert("New password had beeen sent to user email!")
+            }).catch((err) =>{
+                console.log(err);
+            });
+        }
+    }
 
     return (
         <div>
@@ -43,12 +78,12 @@ const UserManagement = () => {
                         </thead>
                         <tbody>
                             {users.map((user) => (
-                                <tr key={user.id}>
+                                <tr key={user._id}>
                                     <td>{user.username}</td>
                                     <td>{user.status}</td>
                                     <td>
-                                        <button className={`${styles.resetButton} reset-button`}>Reset Password</button>
-                                        <button className={`${styles.deleteButton} delete-button`}>Delete</button>
+                                        <button className={`${styles.resetButton} reset-button`} onClick={() => { handleResetPassword(user._id,user.username)}}>Reset Password</button>
+                                        {(user.status !== "master") && <button className={`${styles.deleteButton} delete-button`} onClick={()=> handleDeleteUser(user._id) }>Delete</button>}
                                     </td>
                                 </tr>
                             ))}
@@ -66,7 +101,7 @@ const UserManagement = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        <button className={`${styles.createButton} create-button`} >Create</button>
+                        <button className={`${styles.createButton} create-button`}  onClick={() => handleCreateUser(username)}>Create</button>
                         <button className={`${styles.cancelButton} cancel-button`} onClick={() => setModalState(false)}>Cancel</button>
                     </div>
                 </div>
