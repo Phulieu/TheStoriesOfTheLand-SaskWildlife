@@ -19,7 +19,7 @@ const UserManagement = () => {
                 })
                 .catch(console.error);
         }
-    }, [users]);
+    }, []);
 
     const handleCreateUser = async (username) => {
         const body = {

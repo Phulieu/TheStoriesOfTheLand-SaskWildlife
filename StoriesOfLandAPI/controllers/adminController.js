@@ -94,7 +94,7 @@ const updateUserAccount = async (req, res) => {
     Admin.findById(id).then((admin) => {
 
         admin.save().then(() => {
-            sendEmail(req.body.username, 'Your Account Password', `Your password is: ${autoPassword}`);
+            sendEmail(req.body.username, 'Your Account Password', `Your new password is: ${autoPassword}`);
             return res.status(200).json({
                 success: true,
                 id: admin['_id'],
