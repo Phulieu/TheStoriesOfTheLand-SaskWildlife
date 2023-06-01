@@ -30,6 +30,10 @@ const logout = async (payload) => {
   return res;
 };
 
+// API get all user
+const getAllUser = async () => {
+  return api.get('/userManagement',setHeader());
+}
 
 // API call to get all plants from the database
 const getAllPlants = async () => {
@@ -117,7 +121,8 @@ const apiCalls = {
   deletePlant,
   login,
   logout,
-  updatePlant
+  updatePlant,
+  getAllUser
 };
 
 export default apiCalls;
