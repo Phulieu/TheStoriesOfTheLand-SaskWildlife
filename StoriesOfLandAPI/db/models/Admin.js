@@ -3,6 +3,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const adminSchema = new mongoose.Schema({
     username: { type: String, required: true },
+    status:{ type: String, required: false },
     password: { type: String, required: false }
 });
 
