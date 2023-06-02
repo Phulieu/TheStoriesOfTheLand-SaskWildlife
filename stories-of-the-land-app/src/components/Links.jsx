@@ -22,7 +22,7 @@ const Links = () => {
                 setUnreadFeedbackCount(count); // Update the state with the fetched count
             })
             .catch(console.error);
-    }, []);
+    }, [unreadFeedbackCount]);
     
       
     return(
