@@ -24,6 +24,10 @@ const FeedbackList = () => {
   const handleClick = (feedback) => {
     setModalState(true);
     setSelectedFeedback(feedback);
+    apiCalls.readFeedBack(feedback._id).then((res)=>{
+
+    }).catch(console.error);
+
   };
   /**
    * Handles the closing of the modal.
@@ -44,7 +48,7 @@ const FeedbackList = () => {
     }
   };
   return (
-    <div className={styles.viewContainer}>
+    <div>
       <NavBar/>
       <div className='container py-4'>
         <div className={styles.tableContainer}>
@@ -53,21 +57,25 @@ const FeedbackList = () => {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              {feedbacks.map((feedback) => (
-                <tr key={feedback._id}>
-                  <td>{feedback.name}</td>
-                  <td>{feedback.email}</td>
-                  <td>
-                    <button className={styles.viewButton} style={{"backgroundColor" : "#1a3c34"}} onClick={() => {handleClick(feedback)}}>
-                      View Feedback
-                    </button>
-                    <button  className={styles.deleteButton} onClick={() => handleDelete(feedback._id)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
+            {feedbacks.map((feedback, index) => (
+  <tr key={feedback._id}>
+    <td>{feedbacks[feedbacks.length - index - 1].name}</td>
+    <td>{feedbacks[feedbacks.length - index - 1].email}</td>
+    <td>
+      <button className={styles.viewButton} style={{ backgroundColor: '#1a3c34' }} onClick={() => handleClick(feedbacks[feedbacks.length - index - 1])}>
+        View Feedback
+      </button>
+      <button className={styles.deleteButton} onClick={() => handleDelete(feedbacks[feedbacks.length - index - 1]._id)}>
+        Delete
+      </button>
+    </td>
+  </tr>
+))}
+
             </tbody>
           </table>
         </div>

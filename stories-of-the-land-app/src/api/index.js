@@ -143,6 +143,14 @@ const deleteFeedBack = async (id) => {
   
 };
 
+const readFeedBack = async (id) => {  
+  console.log("read id "+id);
+  return api.put(`/feedback/read/${id}`, setHeader());
+  
+};
+
+
+
 // return API calls
 const apiCalls = {
   getAllPlants,
@@ -155,6 +163,7 @@ const apiCalls = {
   getAllFeedback,
   deleteFeedBack,
   getFeedbackCount,
+  readFeedBack,
   updatePlant,
   getAllUser,
   registerUser,

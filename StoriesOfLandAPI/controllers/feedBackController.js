@@ -43,15 +43,39 @@ const createFeedback = async (req, res) => {
         return res.status(404).json({ success: false, error: "No Feedback found." });
       }
   
-      // Update the read field of each feedback to "yes"
-      for (const feedbackItem of feedback) {
-        feedbackItem.read = "yes";
-        await feedbackItem.save();
-      }
+      // // Update the read field of each feedback to "yes"
+      // for (const feedbackItem of feedback) {
+      //   feedbackItem.read = "yes";
+      //   await feedbackItem.save();
+      // }
   
       return res.status(200).json({ success: true, data: feedback });
     } catch (err) {
       return res.status(400).json({ success: false, error: err.message });
+    }
+  };
+  
+  const updateReadFeedback = async (req, res) => {
+    try {
+      const id = req.params.id;  
+      console.log( req.params.id+"id");
+      
+      // Find the feedback by ID and update the read field to "yes"
+      const updatedFeedback = await Feedback.findByIdAndUpdate(
+        id,
+        { read: 'yes' }
+        
+      );
+  
+      if (!updatedFeedback) {
+        return res
+          .status(404)
+          .json({ success: false, error: 'Feedback not found' });
+      }
+  
+      return res.json({ success: true, data: updatedFeedback });
+    } catch (error) {
+      return res.status(400).json({ success: false, error: error.message });
     }
   };
   
@@ -72,7 +96,8 @@ const deleteFeedBack = async (req, res)=>{
    createFeedback,
     getAllFeedback,
    deleteFeedBack,
-   getFeedbackCount
+   getFeedbackCount,
+   updateReadFeedback
 
 
 };
