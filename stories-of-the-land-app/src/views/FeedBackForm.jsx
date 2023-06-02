@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import apiCalls from "../api";
 import styles from "./FeedBackForm.module.css";
 
-const FeedBackForm = (SpecimenID) => {
+const FeedBackForm = () => {
+    const { SpecimenID } = useParams();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [feedback, setFeedback] = useState("");

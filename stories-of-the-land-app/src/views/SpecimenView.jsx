@@ -1,6 +1,6 @@
   import { useEffect, useRef, useState } from "react";
   import { useParams } from "react-router-dom";
-  import styles from "./SpecimenView.module.css";
+  import { useNavigate } from "react-router-dom";
   import apiCalls from "../api";
   import axios from "axios";
   import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +20,7 @@
     const [specimen, setSpecimen] = useState({});
     const [language, setLanguage] = useState("en"); 
     const [isToggled, setIsToggled] = useState(false);
+    const navigate = useNavigate();
 
     async function handleClick (){
       setIsToggled(!isToggled);
@@ -39,13 +40,13 @@
     const spanStyle = {
       display: 'inline-block',
       width: '50%',
-      height: '90%',
+      height: '100%',
       backgroundColor: 'white',
       borderRadius: '50%',
       transition: 'margin-left 0.3s',
       marginLeft: isToggled ? '60%' : '-15%',
-      marginRight: isToggled ? '0%' : '50%',
-      marginTop: '3%',
+      marginRight: isToggled ? '0%' : '100%',
+      marginTop: '0%',
     };
 
     const containerStyle = {
@@ -102,6 +103,11 @@
 
     }, [id]);
 
+    /** This function redirects to the feedback form */
+    function handleFeedbackClick() {
+      navigate(`/plant/${id}/feedback`);
+    }
+
     /**
       This function plays the audio file associated with the specimen.
     */
@@ -147,7 +153,7 @@
       </nav>
       <div className="container">
         <div className="row">
-          <div className="col p-0 text-center" style={{ backgroundColor: "#a77a8aa"}}>
+          <div className="col p-0 text-center" style={{ backgroundColor: "#a7a8aa"}}>
             <img
               src={`http://${backendURL}:3001` + specimen.image}
               alt="Specimen"
@@ -201,7 +207,7 @@
               }}>{specimen.story}</p>
                     </div>
                     <div className="text-center mt-4">
-        <button className="btn btn-primary mb-42" style={{backgroundColor: '#702082'}}>Give us some feedback</button>
+        <button className="btn btn-primary mb-42" style={{backgroundColor: '#702082'}} onClick={handleFeedbackClick}>Give us some feedback</button>
       </div>
                   </div>
                 </div>
