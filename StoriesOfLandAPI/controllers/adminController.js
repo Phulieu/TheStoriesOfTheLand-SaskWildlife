@@ -92,15 +92,13 @@ const updateUserAccount = async (req, res) => {
         return res.status(400).json({ success: false, error: "You must provide Admin User account information" });
     }
     Admin.findById(id).then((admin) => {
-        admin.password = autoPassword;
 
         admin.save().then(() => {
-            sendEmail(req.body.username, 'Your Account Password', `Your password is: ${autoPassword}`);
+            sendEmail(req.body.username, 'Your Account Password', `Your new password is: ${autoPassword}`);
             return res.status(200).json({
                 success: true,
                 id: admin['_id'],
-                message: "Password updated",
-                password: admin['password']
+                message: "Password updated"
             });
         }).catch((err) => {
             return res.status(400).json({ success: false, err: err });

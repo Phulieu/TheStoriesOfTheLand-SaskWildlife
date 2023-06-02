@@ -5,12 +5,15 @@ import {Link} from 'react-router-dom';
  * @returns Creates link to navigate to routes
  */
 const Links = () => {
+
+    const userStatus = sessionStorage.getItem("userStatus");
     return(
         <>
             <Link className="navbar-brand" to="/plant/list">Stories of the Land App</Link>
             <div className = 'navbar-nav me-auto'>
                 <Link className="nav-link" to="/plant/list">Specimens</Link>
                 <Link className="nav-link"> Feedback</Link>
+                {(userStatus === "master") && <Link className="nav-link" to="/usermanagement">User Management</Link>}
             </div>
         </>
     );
