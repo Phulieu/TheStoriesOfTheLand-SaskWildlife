@@ -31,7 +31,7 @@
       display: 'inline-block',
       width: '52px',
       height: '26px',
-      backgroundColor: isToggled ? '#702082' : 'grey',
+      backgroundColor: isToggled ? '#702082' : '#a7a8aa',
       border: 'none',
       borderRadius: '13px',
       cursor: 'pointer',
@@ -46,7 +46,7 @@
       transition: 'margin-left 0.3s',
       marginLeft: isToggled ? '60%' : '-15%',
       marginRight: isToggled ? '0%' : '100%',
-      marginTop: '0%',
+      marginBottom: '10%',
     };
 
     const containerStyle = {

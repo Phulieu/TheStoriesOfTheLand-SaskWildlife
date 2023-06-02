@@ -94,14 +94,14 @@ router.get('/plant/:id', plantController.getPlantById);
  * When a POST request is received at this URL,
  * the 'createPlant' function from the 'plantController' module is called.
  */
-router.post('/plant', upload.fields([{ name: 'image' }, { name: 'audio' }]), plantController.createPlant);
+router.post('/plant', auth.verifyUser, upload.fields([{ name: 'image' }, { name: 'audio' }]), plantController.createPlant);
 
 /**
  * defines a route that handles PUT requests to the '/plant/:id' URL.
  * When a PUT request is received at this URL,
  * the 'updatePlant' function from the 'plantController' module is called.
  */
-router.put('/plant/:id', upload.fields([{ name: 'image' }, { name: 'audio' }]), plantController.updatePlant);
+router.put('/plant/:id', auth.verifyUser, upload.fields([{ name: 'image' }, { name: 'audio' }]), plantController.updatePlant);
 
 /**
  * defines a route that handles DELETE requests to the '/plant/:id' URL.
