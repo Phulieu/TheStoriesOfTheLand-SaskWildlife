@@ -79,9 +79,11 @@ const createPlant = async (payload) => {
        // console.log("Form data"+[...formData]);
         console.log("working...");
 
+        const token = sessionStorage.getItem("token");
         const response = await api.post('/plant', formData, {
             headers: {
               "Content-Type": "multipart/form-data",
+              "Authorization" : `Bearer ${token}`
             },
           });
         console.log(response)
@@ -107,10 +109,11 @@ const updatePlant = async (payload,id) => {
       formData.append("audio", payload.audio);
      console.log("form data"+[...formData]);
 
-
+      const token = sessionStorage.getItem("token");
       const response = await api.put(`/plant/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization" : `Bearer ${token}`
           },
         })
       console.log("response from  server"+response)
