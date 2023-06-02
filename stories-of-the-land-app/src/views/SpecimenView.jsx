@@ -2,7 +2,6 @@
   import { useParams } from "react-router-dom";
   import styles from "./SpecimenView.module.css";
   import apiCalls from "../api";
-  import volume from "../volume-up.svg";
   import axios from "axios";
   import "bootstrap/dist/css/bootstrap.min.css";
   import SaskPolyLogo from "../assets/logos/Saskatchewan_Polytechnic.png"
@@ -20,6 +19,44 @@
     const { id } = useParams();
     const [specimen, setSpecimen] = useState({});
     const [language, setLanguage] = useState("en"); 
+    const [isToggled, setIsToggled] = useState(false);
+
+    async function handleClick (){
+      setIsToggled(!isToggled);
+      // handleLanguageToggle();
+    };
+  
+    const buttonStyle = {
+      display: 'inline-block',
+      width: '52px',
+      height: '26px',
+      backgroundColor: isToggled ? '#702082' : 'grey',
+      border: 'none',
+      borderRadius: '13px',
+      cursor: 'pointer',
+    };
+  
+    const spanStyle = {
+      display: 'inline-block',
+      width: '50%',
+      height: '90%',
+      backgroundColor: 'white',
+      borderRadius: '50%',
+      transition: 'margin-left 0.3s',
+      marginLeft: isToggled ? '60%' : '-15%',
+      marginRight: isToggled ? '0%' : '50%',
+      marginTop: '3%',
+    };
+
+    const containerStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      marginRight: '20px',
+    };
+
+    const labelStyle = {
+      marginRight: '5px',
+    };
 
     const calledAPI = useRef();
 
@@ -98,28 +135,81 @@
     
     return (
       <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container">
-            <a className="navbar-brand" href="#"><img src={SaskPolyLogo} alt="Logo 1" style={{maxHeight: '40px'}}/></a>
-            <a className="navbar-brand" href="#"><img src={SWFLogo} alt="Logo 2" style={{maxHeight: '40px'}}/></a>
-          </div>
-        </nav>
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <img src="path/to/image.jpg" alt="Specimen Image" class="img-fluid"/>
-            </div>
-          </div>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container d-flex justify-content-center">
+          <a className="navbar-brand d-flex align-items-center justify-content-center" href="https://saskpolytech.ca/" style={{marginRight: '-10px'}}>
+            <img src={SaskPolyLogo} alt="Logo 1" style={{ maxHeight: "40px", margin: "0px -20px 0px 20px" }} />
+          </a>
+          <a className="navbar-brand d-flex align-items-center justify-content-center" href="https://swf.sk.ca/" style={{marginLeft: '50px'}}>
+            <img src={SWFLogo} alt="Logo 2" style={{ maxHeight: "40px", margin: "0 auto" }} />
+          </a>
         </div>
+      </nav>
+      <div className="container">
+        <div className="row">
+          <div className="col p-0 text-center" style={{ backgroundColor: "#a77a8aa"}}>
+            <img
+              src={`http://${backendURL}:3001` + specimen.image}
+              alt="Specimen"
+              className="img-fluid"
+            />
+            <div
+              className="position-absolute w-150"
+              style={{ marginTop: "-10px", backgroundColor: "white", borderRadius: "10px" }}
+            >
+              <div className="container">
+                <div className="row">
+                <div className="col">
+                <h2 className="mt-4 fw-bold fs-2" style={{ textAlign: "center", marginBottom: "20px", marginTop: "20px" }}>{specimen.plantName}</h2>
 
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <h2>Specimen Information</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+                <div className="d-flex justify-content-between">
+                  <button
+                    className="btn btn-primary me-2"
+                    onClick={()=>{audioPlay()}}
+                    style={{
+                      backgroundColor: "#702082",
+                      color: "white",
+                      borderRadius: "4px",
+                      padding: "5px 10px",
+                      display: "flex",
+                      alignItems: "center",
+                      fontSize: "16px",
+                      margin: "0px 0px 0px 20px"
+                    }}
+                  >
+                    <i className="fas fa-play me-2"></i>
+                    Cree Pronunciation
+                  </button>
+
+            <div style={containerStyle}>
+            <span style={labelStyle}>French</span>
+              <button style={buttonStyle} onClick={handleClick}>
+                <span style={spanStyle}></span>
+              </button>
+              
+            </div>
+          </div>
+          <div
+              style={{
+                height: "35vh", // Adjust the height as needed
+                overflow: "auto",
+                margin: "50px 20px 0px 20px", // Add margin here
+              }}
+            >
+                    <p style={{
+                margin: "0px 20px 20px 20px", // Add margin here
+              }}>{specimen.story}</p>
+                    </div>
+                    <div className="text-center mt-4">
+        <button className="btn btn-primary mb-42" style={{backgroundColor: '#702082'}}>Give us some feedback</button>
+      </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   };
