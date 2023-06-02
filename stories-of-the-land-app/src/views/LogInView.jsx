@@ -24,8 +24,10 @@ function LogInView() {
     const loginUser = async (username, password) => {
         apiCalls
             .login({ username, password })
-            .then(() => {
+            .then((res) => {
                 navigate("/plant/list");
+                console.log(res.data.status);
+                sessionStorage.setItem("userStatus",res.data.status);
             })
             .catch((err) => {
                 setErrorMessage("Invalid username or password");

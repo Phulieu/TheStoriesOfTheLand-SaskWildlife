@@ -110,6 +110,27 @@ router.put('/plant/:id', upload.fields([{ name: 'image' }, { name: 'audio' }]), 
  */
 router.delete('/plant/:id', plantController.deletePlant);
 
+/**
+ * defines a route that handles GET requests to the '/userManagement' URL.
+ * When a GET request is received at this URL,
+ * the 'getAllUserAccount' function from the 'adminController' module is called.
+ */
+router.get('/userManagement', auth.verifyUser, adminController.getAllUserAccount);
+
+/**
+ * defines a route that handles DELETE requests to the '/userManagement/:id' URL.
+ * When a DELETE request is received at this URL,
+ * the 'deleteUserAccount' function from the 'adminController' module is called.
+ */
+router.delete('/userManagement/:id', auth.verifyUser, adminController.deleteUserAccount);
+
+/**
+ * defines a route that handles PUT requests to the '/userManagement/:id' URL.
+ * When a PUT request is received at this URL,
+ * the 'updateUserAccount' function from the 'adminController' module is called.
+ */
+router.put('/userManagement/:id', auth.verifyUser, adminController.updateUserAccount);
+
 
 //post feedback
 router.post('/feedback',feedbackController.createFeedback);
