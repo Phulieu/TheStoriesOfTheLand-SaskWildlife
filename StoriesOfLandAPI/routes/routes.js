@@ -147,5 +147,10 @@ router.get('/feedback',feedbackController.getAllFeedback);
 //delete feedback
 router.delete('/feedback/:id',feedbackController.deleteFeedBack);
 
+
+
+//getFeedbackCount
+router.get('/feedback/count',feedbackController.getFeedbackCount);
+
 //exports the 'router' constant so that it can be used by other modules in the application
 module.exports = router;

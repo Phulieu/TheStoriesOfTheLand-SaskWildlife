@@ -130,6 +130,10 @@ const createFeedback = async (payload) => {
 const getAllFeedback = async () => {
   return api.get('/feedback', setHeader());
 };
+// API call to get all feedback from the database
+const getFeedbackCount = async () => {
+  return api.get('/feedback/count', setHeader());
+};
 
 //API call to delete feedback
 //delete feedback
@@ -150,6 +154,7 @@ const apiCalls = {
   createFeedback,
   getAllFeedback,
   deleteFeedBack,
+  getFeedbackCount,
   updatePlant,
   getAllUser,
   registerUser,
