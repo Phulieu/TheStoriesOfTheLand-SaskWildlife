@@ -166,7 +166,7 @@
               <div className="container">
                 <div className="row">
                 <div className="col">
-                <h2 className="mt-4 fw-bold fs-2" style={{ textAlign: "center", marginBottom: "20px", marginTop: "20px" }}>{specimen.plantName}</h2>
+                <h2 className="mt-4 fw-bold" style={{ textAlign: "center", marginBottom: "20px", marginTop: "20px", fontSize: "2.5rem" }}>{specimen.plantName}</h2>
 
                 <div className="d-flex justify-content-between">
                   <button

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-//const passportLocalMongoose = require('passport-local-mongoose');
 
 const feedbackSchema = new mongoose.Schema({
     name: { type: String, required: false },
@@ -8,9 +7,6 @@ const feedbackSchema = new mongoose.Schema({
     read:{ type: String, required: true }
 
 });
-
-
-//feedbackSchema.plugin(passportLocalMongoose);
 
 const Feedback = mongoose.model("Feedback", feedbackSchema);
 
