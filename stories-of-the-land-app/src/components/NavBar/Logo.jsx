@@ -1,4 +1,5 @@
-import logo from '../../logo.svg';
+import SaskPolyLogo from '../../assets/logos/Saskatchewan_Polytechnic.png';
+import SWFLogo from '../../assets/logos/SWF-Logo.png'
 
 /**
  * Logo Image
@@ -6,10 +7,18 @@ import logo from '../../logo.svg';
  */
 const Logo = () => {
     return(
-        <img src={logo}
-            width="50"
+        <>
+            <img src={SaskPolyLogo}
+            alt="SaskPolylogo"
             height="50"
-            alt="logo"/>
+            style={{ marginRight: '20px' , marginLeft: '10px' }}
+            />
+            <img src={SWFLogo}
+            height="50"
+            style={{ marginRight: '20px', backgroundColor: 'white' }}          
+            alt="SWFlogo"/>
+        </>
+        
     );
 };
 
