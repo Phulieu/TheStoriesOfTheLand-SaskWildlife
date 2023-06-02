@@ -80,6 +80,8 @@
 .buttonsContainer {
     width: 25rem;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 .addSpecimenButton {
