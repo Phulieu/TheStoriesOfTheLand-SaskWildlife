@@ -116,6 +116,7 @@ const SpecimenList = () => {
                     className="img-fluid mb-3"
                     style={{ maxWidth: "100%" }}
                   />
+                  <audio controls src={`http://${backendURL}:3001` + selectedSpecimen.audio} className="mb-3" />
                   <p className="text-center">{selectedSpecimen.story}</p>
                 </div>
               </div>
