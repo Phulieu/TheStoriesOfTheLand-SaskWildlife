@@ -2,6 +2,37 @@ const passport = require('passport');
 const Admin = require('../db/models/Admin');
 const auth = require('../auth');
 const generatePassword = require('generate-password');
+const nodemailer = require('nodemailer');
+
+const sendEmail = async (to, subject, text) => {
+    let testAccount = await nodemailer.createTestAccount();
+    // create email transport object
+    let transporter = nodemailer.createTransport({
+        host: "smtp.zoho.com",
+        secure: true,
+        port: 465,
+        auth: {
+            user: 'storiesoftheland@zohomail.com', // generated ethereal user
+            pass: 'Group1PROJ', // generated ethereal password
+        },
+    });
+  
+    // define email option
+    const mailOptions = {
+        from: 'storiesoftheland@zohomail.com',
+        to: to,
+        subject: subject,
+        text: text
+    };
+  
+    try {
+        // send email
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent');
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+  };
 
 const register = async (req, res) => {
     const autoPassword = generatePassword.generate({
@@ -11,13 +42,19 @@ const register = async (req, res) => {
         lowercase: true, 
     });
     req.body.password = autoPassword;
-    Admin.register(new Admin({ username: req.body.username, status: req.body.status }), autoPassword, (err, user) => {
+    Admin.register(new Admin({ username: req.body.username, status: req.body.status }), autoPassword, async (err, user) => {
         if (err) {
             res.status(500).json({ success: false, error: err });
         }
-        passport.authenticate('local')(req, res, () => {
-            res.status(200).json({ success: true, message: "Account created", password: autoPassword })
-        });
+        try {
+            await sendEmail(req.body.username, 'Your Account Password', `Your password is: ${autoPassword}`);
+            passport.authenticate('local')(req, res, () => {
+                res.status(200).json({ success: true, message: "Account created", password: autoPassword })
+            });
+        }catch (error) {
+            console.error('Error sending email:', error);
+            res.status(500).json({ success: false, error: 'Failed to send email' });
+        }
     })
 };
 

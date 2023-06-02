@@ -1,6 +1,37 @@
 // import Admin 
 const Admin = require('../db/models/Admin');
 const generatePassword = require('generate-password');
+const nodemailer = require('nodemailer');
+
+const sendEmail = async (to, subject, text) => {
+    let testAccount = await nodemailer.createTestAccount();
+    // create email transport object
+    let transporter = nodemailer.createTransport({
+        host: "smtp.zoho.com",
+        secure: true,
+        port: 465,
+        auth: {
+            user: 'storiesoftheland@zohomail.com', // generated ethereal user
+            pass: 'Group1PROJ', // generated ethereal password
+        },
+    });
+  
+    // define email option
+    const mailOptions = {
+        from: 'storiesoftheland@zohomail.com',
+        to: to,
+        subject: subject,
+        text: text
+    };
+  
+    try {
+        // send email
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent');
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+  };
 
 /**
  * This function handles the GET request to retrieve all admin records from the database.
@@ -61,20 +92,19 @@ const updateUserAccount = async (req, res) => {
         return res.status(400).json({ success: false, error: "You must provide Admin User account information" });
     }
     Admin.findById(id).then((admin) => {
-        admin.password = autoPassword;
 
         admin.save().then(() => {
+            sendEmail(req.body.username, 'Your Account Password', `Your new password is: ${autoPassword}`);
             return res.status(200).json({
                 success: true,
                 id: admin['_id'],
-                message: "Password updated",
-                password: admin['password']
+                message: "Password updated"
             });
         }).catch((err) => {
-            return res.status(400).json({ success: false, message: "err11" });
+            return res.status(400).json({ success: false, err: err });
         });
     }).catch((err) => {
-        return res.status(400).json({ success: false, message: "err22" });
+        return res.status(400).json({ success: false, err: err });
     });
 };
 

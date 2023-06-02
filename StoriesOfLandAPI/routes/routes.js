@@ -13,6 +13,10 @@ const plantController = require('../controllers/controller');
 
 //imports the 'authController' module from the '../controllers' directory.
 const authController = require('../controllers/authController');
+
+//imports the 'feedbackController' module from the '../controllers' directory.
+const feedbackController = require('../controllers/feedBackController');
+
 //imports the 'auth' module
 const auth = require('../auth');
 //import the 'adminController' module from the '../controllers' directory.
@@ -56,7 +60,7 @@ const upload = multer({ storage });
  * defines a route that handles POST requests to the '/register' URL.
  * When a POST request is received at this URL,the register function from the 'authController' module is called.
  */
-router.post('/register', authController.register);
+router.post('/register', auth.verifyUser, authController.register);
 
 
 /**
@@ -126,6 +130,10 @@ router.delete('/userManagement/:id', auth.verifyUser, adminController.deleteUser
  * the 'updateUserAccount' function from the 'adminController' module is called.
  */
 router.put('/userManagement/:id', auth.verifyUser, adminController.updateUserAccount);
+
+
+//post feedback
+router.post('/feedback',feedbackController.createFeedback);
 
 //exports the 'router' constant so that it can be used by other modules in the application
 module.exports = router;
