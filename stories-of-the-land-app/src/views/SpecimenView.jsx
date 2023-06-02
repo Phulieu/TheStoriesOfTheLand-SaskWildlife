@@ -191,13 +191,13 @@
           </div>
           <div
               style={{
-                height: "35vh", // Adjust the height as needed
+                height: "35vh",
                 overflow: "auto",
-                margin: "50px 20px 0px 20px", // Add margin here
+                margin: "50px 20px 0px 20px",
               }}
             >
                     <p style={{
-                margin: "0px 20px 20px 20px", // Add margin here
+                margin: "0px 20px 20px 20px",
               }}>{specimen.story}</p>
                     </div>
                     <div className="text-center mt-4">
