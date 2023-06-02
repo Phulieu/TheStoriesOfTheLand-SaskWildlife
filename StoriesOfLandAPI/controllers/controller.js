@@ -188,6 +188,32 @@ const deletePlant = async (req, res) => {
 };
 
 /**
+ * This function retrieves information about a plant with the specified plantName.
+ * @param {object} req 
+ * @param {object} res 
+ */
+const getPlantByName = async (req, res) => {
+
+  const reqName = req.params.name;
+
+  Plant.
+      //get data by name 
+      find({ plantName: { $regex: reqName, $options: 'i' } }).
+      then((plant) => {
+          //if plant does not exist ,no data response return as json and error message 404
+          if (plant.length === 0) {
+              return res.status(404).json({ success: false, error: "Plant does not exist." });
+          }
+          // on success
+          return res.status(200).json({ success: true, data: plant });
+      }).
+      //on error catch block will excute and returns status code 400 with error message
+      catch((err) => {
+          return res.status(400).json({ success: false, error: err });
+      });
+};
+
+/**
  *  export getAllPlant, getPlantById, createPlant, updatePlant and deletePlant.
  */
 module.exports = {
@@ -195,5 +221,6 @@ module.exports = {
     getPlantById,
     createPlant,
     updatePlant,
-    deletePlant
+    deletePlant,
+    getPlantByName
 };

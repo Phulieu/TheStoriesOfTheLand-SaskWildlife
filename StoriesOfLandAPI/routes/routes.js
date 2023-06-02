@@ -131,9 +131,26 @@ router.delete('/userManagement/:id', auth.verifyUser, adminController.deleteUser
  */
 router.put('/userManagement/:id', auth.verifyUser, adminController.updateUserAccount);
 
+/**
+ * defines a route that handles GET requests to the '/plant/search/:name' URL.
+ * When a GET request is received at this URL, 
+ * the 'getPlantByName' function from the 'plantController' module is called.
+ */
+router.get('/plant/search/:name', plantController.getPlantByName);
 
 //post feedback
 router.post('/feedback',feedbackController.createFeedback);
+
+//get all feedback
+router.get('/feedback',feedbackController.getAllFeedback);
+
+//delete feedback
+router.delete('/feedback/:id',feedbackController.deleteFeedBack);
+
+
+
+//getFeedbackCount
+router.get('/feedback/count',feedbackController.getFeedbackCount);
 
 //exports the 'router' constant so that it can be used by other modules in the application
 module.exports = router;
