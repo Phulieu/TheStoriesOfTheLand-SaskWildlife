@@ -25,7 +25,7 @@ function App() {
           <Route path="/add-specimen" element={<AddSpecimen/>}/>
           <Route path="/plant/:SpecimenID/QRCode" element={<QRGenerate/>}/>
           <Route path="/plant/:SpecimenID/Update" element={<UpdatePlantForm/>}/>
-          <Route path="/plant/feedback" element={<FeedBackForm/>}/>
+          <Route path="/plant/:SpecimenID/feedback" element={<FeedBackForm/>}/>
           <Route path="/usermanagement" element={<UserManagement />} />
         </Routes>
       </BrowserRouter>
