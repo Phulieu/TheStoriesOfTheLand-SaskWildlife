@@ -12,7 +12,7 @@ const Links = () => {
             <Link className="navbar-brand" to="/plant/list">Stories of the Land App</Link>
             <div className = 'navbar-nav me-auto'>
                 <Link className="nav-link" to="/plant/list">Specimens</Link>
-                <Link className="nav-link"> Feedback</Link>
+                <Link className="nav-link" to="/feedback/list"> Feedback</Link>
                 {(userStatus === "master") && <Link className="nav-link" to="/usermanagement">User Management</Link>}
             </div>
         </>
