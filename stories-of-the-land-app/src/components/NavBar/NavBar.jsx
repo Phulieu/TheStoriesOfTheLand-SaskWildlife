@@ -18,6 +18,7 @@ const NavBar = () => {
     apiCalls
       .logout()
       .then(() => {
+        sessionStorage.clear();
         navigate('/');
       })
       .catch((err) => {

@@ -13,6 +13,10 @@ const plantController = require('../controllers/controller');
 
 //imports the 'authController' module from the '../controllers' directory.
 const authController = require('../controllers/authController');
+
+//imports the 'feedbackController' module from the '../controllers' directory.
+const feedbackController = require('../controllers/feedBackController');
+
 //imports the 'auth' module
 const auth = require('../auth');
 //import the 'adminController' module from the '../controllers' directory.
@@ -133,6 +137,9 @@ router.put('/userManagement/:id', auth.verifyUser, adminController.updateUserAcc
  * the 'getPlantByName' function from the 'plantController' module is called.
  */
 router.get('/plant/search/:name', plantController.getPlantByName);
+
+//post feedback
+router.post('/feedback',feedbackController.createFeedback);
 
 //exports the 'router' constant so that it can be used by other modules in the application
 module.exports = router;

@@ -30,7 +30,25 @@ const logout = async (payload) => {
   return res;
 };
 
+// API get all user
+const getAllUser = async () => {
+  return api.get('/userManagement',setHeader());
+}
 
+// API to register
+const registerUser = async (payload) => {
+  return api.post('/register',payload,setHeader());
+}
+
+// API to reset password 
+const resetPassword = async (id,payload) => {
+  return api.put(`/userManagement/${id}`,payload,setHeader());
+}
+// API to delete password
+
+const deleteUser = async (id) => {
+  return api.delete(`/userManagement/${id}`,setHeader());
+}
 // API call to get all plants from the database
 const getAllPlants = async () => {
   return api.get('/plant', setHeader());
@@ -94,7 +112,7 @@ const updatePlant = async (payload,id) => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        });
+        })
       console.log("response from  server"+response)
       return response.data;
     } catch (error) {
@@ -103,10 +121,10 @@ const updatePlant = async (payload,id) => {
     }
 };
 
-
-
-
-
+// API call to create new feedback in the feedback database
+const createFeedback = async (payload) => {
+  return api.post('/feedback',payload);
+};
 
 
 // return API calls
@@ -117,7 +135,12 @@ const apiCalls = {
   deletePlant,
   login,
   logout,
-  updatePlant
+  createFeedback,
+  updatePlant,
+  getAllUser,
+  registerUser,
+  resetPassword,
+  deleteUser
 };
 
 export default apiCalls;

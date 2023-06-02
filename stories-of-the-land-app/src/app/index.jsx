@@ -4,6 +4,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { QRGenerate, LogInView, SpecimenList,UpdatePlantForm } from "../views";
 import SpecimenView from "../views/SpecimenView";
 import AddSpecimen from "../views/AddSpecimen";
+import FeedBackForm from "../views/FeedBackForm";
+import UserManagement from "../views/UserManagement";
 
 
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/add-specimen" element={<AddSpecimen/>}/>
           <Route path="/plant/:SpecimenID/QRCode" element={<QRGenerate/>}/>
           <Route path="/plant/:SpecimenID/Update" element={<UpdatePlantForm/>}/>
+          <Route path="/plant/:SpecimenID/feedback" element={<FeedBackForm/>}/>
+          <Route path="/usermanagement" element={<UserManagement />} />
         </Routes>
       </BrowserRouter>
     </div>

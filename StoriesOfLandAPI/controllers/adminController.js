@@ -91,23 +91,30 @@ const updateUserAccount = async (req, res) => {
     if (body.constructor === Object && Object.keys(body).length === 0) {
         return res.status(400).json({ success: false, error: "You must provide Admin User account information" });
     }
-    Admin.findById(id).then((admin) => {
-        admin.password = autoPassword;
 
-        admin.save().then(() => {
-            sendEmail(req.body.username, 'Your Account Password', `Your password is: ${autoPassword}`);
-            return res.status(200).json({
-                success: true,
-                id: admin['_id'],
-                message: "Password updated",
-                password: admin['password']
-            });
-        }).catch((err) => {
-            return res.status(400).json({ success: false, err: err });
+    try {
+        const admin = await Admin.findById(id);
+
+        if (!admin) {
+            return res.status(400).json({ success: false, error: "Admin User not found" });
+        }
+
+        admin.setPassword(autoPassword, (err) => {
+            if (err) {
+                return res.status(400).json({ success: false, err: err });
+            }
+            admin.save();
         });
-    }).catch((err) => {
+
+        sendEmail(req.body.username, 'Your Account Password', `Your new password is: ${autoPassword}`);
+        return res.status(200).json({
+            success: true,
+            id: admin['_id'],
+            message: "Password updated"
+        });
+    } catch(err) {
         return res.status(400).json({ success: false, err: err });
-    });
+    };
 };
 
 /**
