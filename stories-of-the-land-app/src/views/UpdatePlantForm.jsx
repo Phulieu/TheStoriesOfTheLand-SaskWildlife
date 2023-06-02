@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import apiCalls from '../api';
 import { NavBar } from '../components';
 import styles from "./UpdatePlantForm.module.css";
+import uploadImg from '../assets/cloud-upload-regular-240.png'
 
 /**
  * Represents the form for updating a plant specimen.
@@ -175,6 +176,7 @@ const UpdatePlantForm = () => {
    */
   const imageRemove = () => {
     setImage(null);
+    setNewImage(null);
   };
 
   return (
@@ -228,10 +230,13 @@ const UpdatePlantForm = () => {
     ) : newImage ? (
       <div className={styles.imagePreview}>
         <img src={URL.createObjectURL(newImage)} alt="Preview" />
+        <div className={styles.deleteButton} onClick={imageRemove}>
+                      <i className="fas fa-times"></i>
+                    </div>
       </div>
     ) : (
       <div className={styles.dropFileInputLabel}>
-        <img src={oldImage} alt="Placeholder" />
+        <img src={uploadImg} alt="Placeholder" />
         <p>Drag & Drop your image here or Click to browse files</p>
       </div>
     )}
