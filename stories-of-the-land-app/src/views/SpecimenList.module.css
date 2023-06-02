@@ -1,5 +1,6 @@
 .viewContainer {
-    background-color: #d2e3da
+    background-color: #d2e3da;
+    min-height: 100vh;
 }
 
 .modal {
