@@ -3,6 +3,10 @@ import apiCalls from "../api";
 import { NavBar } from "../components";
 import styles from "./UserManagement.module.css";
 
+/**
+ * UserManagement component handles the management of users, including adding, deleting, and resetting passwords.
+ */
+
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
     const calledAPI = useRef(false);
@@ -21,6 +25,11 @@ const UserManagement = () => {
         }
     }, []);
 
+
+    /**
+     * Handles the creation of a new user.
+     * @param {string} username - The username of the new user.
+     */
     const handleCreateUser = async (username) => {
         const body = {
             username : username,
@@ -36,6 +45,10 @@ const UserManagement = () => {
         ).catch(console.error)
     }
   
+    /**
+     * Handles the deletion of a user.
+     * @param {string} id - The ID of the user to be deleted.
+     */
     const handleDeleteUser = async (id) => {
         
         if (window.confirm("Are you sure to delete this user?")){
@@ -47,6 +60,11 @@ const UserManagement = () => {
         }
     }
 
+    /**
+     * Handles the password reset for a user.
+     * @param {string} id - The ID of the user.
+     * @param {string} username - The username of the user.
+     */
     const handleResetPassword = async (id,username) => {
         const body = {username};
         if (window.confirm("Are you sure to reset password this user?")){
