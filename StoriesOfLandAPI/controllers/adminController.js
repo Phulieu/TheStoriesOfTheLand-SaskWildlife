@@ -1,12 +1,18 @@
 // import Admin 
 const Admin = require('../db/models/Admin');
+//import generate-password and nodemailer library
 const generatePassword = require('generate-password');
 const nodemailer = require('nodemailer');
 
+/**
+ * This function used to send an email.
+ * @param {object} to 
+ * @param {object} subject 
+ * @param {object} text
+ */
 const sendEmail = async (to, subject, text) => {
-    let testAccount = await nodemailer.createTestAccount();
     // create email transport object
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
         host: "smtp.zoho.com",
         secure: true,
         port: 465,
@@ -65,6 +71,8 @@ const getAllUserAccount = async (req, res) => {
  * @param {object} res 
  */
 const deleteUserAccount = async (req, res) => {
+
+    // find the id and delete 
     Admin.findByIdAndRemove(req.params.id).then((admin) => {
         return res.status(200).json({ success: true, message: "Admin user deleted", data: admin });
     }).catch((err) => {
@@ -81,6 +89,8 @@ const deleteUserAccount = async (req, res) => {
 const updateUserAccount = async (req, res) => {
     const id = req.params.id;
     const body = req.body;
+
+    // generate password automatically
     const autoPassword = generatePassword.generate({
         length: 8, 
         numbers: true,
@@ -93,19 +103,23 @@ const updateUserAccount = async (req, res) => {
     }
 
     try {
+        //find the admin user information to update the password 
         const admin = await Admin.findById(id);
 
         if (!admin) {
             return res.status(400).json({ success: false, error: "Admin User not found" });
         }
 
+        // update password
         admin.setPassword(autoPassword, (err) => {
             if (err) {
                 return res.status(400).json({ success: false, err: err });
             }
+            // save new information in database
             admin.save();
         });
 
+        // send new password to user email address
         sendEmail(req.body.username, 'Your Account Password', `Your new password is: ${autoPassword}`);
         return res.status(200).json({
             success: true,
